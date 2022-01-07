@@ -1,0 +1,11 @@
+.col-type {
+  width: 120px;
+}
+
+.col-value-header {
+  width: 120px;
+}
+
+.col-value-content {
+  text-align: right!important;
+}

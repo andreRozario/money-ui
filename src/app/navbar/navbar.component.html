@@ -1,0 +1,16 @@
+<p-menubar>
+
+  <ng-template pTemplate="start">
+    <button class="p-button-raised p-button-secondary p-button-text pl-4 pr-4" type="button" pButton pRipple (click)="display = true" icon="pi pi-bars"></button>
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    <button class="p-button-rounded p-button-warning p-button-text" type="button" pButton icon="pi pi-power-off" pTooltip="Logout" tooltipPosition="left"></button>
+  </ng-template>
+
+</p-menubar>
+
+<p-sidebar [(visible)]="display" position="right">
+  <h3><i class="pi pi-user mr-3"></i>ADMINISTRADOR</h3>
+  <p-menu [model]="items"></p-menu>
+</p-sidebar>

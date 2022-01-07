@@ -1,0 +1,13 @@
+/* HACKS */
+
+:host ::ng-deep .p-menu {
+  border: unset!important;
+  width: unset!important;
+}
+
+@media screen and (max-width: 960px) {
+
+  :host ::ng-deep .p-menubar .p-menubar-button {
+    display: none!important;
+  }
+}
