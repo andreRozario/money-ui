@@ -1,0 +1,36 @@
+<p-table [value]="persons" [paginator]="true" [rows]="2" [responsive]="true" styleClass="p-datatable-striped">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Nome</th>
+      <th>Cidade</th>
+      <th class="col-state">Estado</th>
+      <th class="col-status-header">Status</th>
+      <th class="col-actions"></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-person>
+    <tr>
+      <td>
+        <span class="p-column-title">Nome</span>
+        {{ person.name }}
+      </td>
+      <td>
+        <span class="p-column-title">Cidade</span>
+        {{ person.city }}
+      </td>
+      <td class="col-state">
+        <span class="p-column-title">Estado</span>
+        {{ person.state }}
+      </td>
+      <td class="col-status-title">
+        <span class="p-column-title">Status</span>
+        <p-tag styleClass="block text-center" severity="{{ person.status ? 'success' : 'danger' }}" value="{{ person.status ? 'Ativo' : 'Inativo' }}" [rounded]="true"></p-tag>
+      </td>
+      <td class="col-actions">
+        <a icon="pi pi-pencil" pButton pTooltip="Editar" tooltipPosition="top"></a>
+        <button  class="p-button-danger" icon="pi pi-trash" pButton pTooltip="Deletar" tooltipPosition="top"></button>
+      </td>
+    </tr>
+  </ng-template>
+
+</p-table>

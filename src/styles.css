@@ -22,11 +22,21 @@ h1 {
 }
 
 .col-date-header {
-  width: 120px;
+  width: 135px;
+  text-align: center!important;
 }
 
 .col-date-content {
   text-align: center!important;
+}
+
+.col-status-header {
+  width: 100px;
+  text-align: center!important;
+}
+
+.col-status-title {
+  text-transform: uppercase;
 }
 
 .col-actions {
@@ -45,4 +55,42 @@ h1 {
 
 .p-datatable .p-datatable-thead > tr > th {
   background-color: #161c25;
+}
+
+.p-card .p-card-footer {
+  padding-top: 0.65rem;
+}
+
+.p-selectbutton .p-button.p-highlight {
+  background-color: #2a5185!important;
+  border-color: #2a5185!important;
+}
+
+.p-dropdown {
+  width: 100%!important;
+}
+
+.border-noround--left {
+  border-top-left-radius: 0!important;
+  border-bottom-left-radius: 0!important;
+}
+
+.p-dropdown-filter {
+  width: 100%!important;
+}
+
+.p-dropdown-label {
+  padding: 0!important;
+}
+
+p-inputnumber.ng-touched.ng-invalid > .p-inputnumber > .p-inputtext, p-dropdown.ng-touched.ng-invalid > .p-dropdown {
+  border-color: #f19ea6;
+}
+
+.p-float-label > p-inputnumber.ng-invalid.ng-touched + label, .p-float-label > p-dropdown.ng-invalid.ng-touched + label {
+  color: #f19ea6;
+}
+
+.p-float-label > p-inputnumber .p-inputnumber-input.p-filled {
+  color: #ffffff;
 }

@@ -1,9 +1,15 @@
-.col-type {
+.col-type-header {
   width: 120px;
+  text-align: center!important;
+}
+
+.col-type-content {
+  text-transform: uppercase!important;
 }
 
 .col-value-header {
   width: 120px;
+  text-align: right!important;
 }
 
 .col-value-content {

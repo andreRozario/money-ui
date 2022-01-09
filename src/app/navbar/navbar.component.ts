@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit {
       label: 'Lançamentos',
       items: [{
           label: 'Listar',
-          icon: 'pi pi-list',
+          icon: 'pi pi-align-left',
           command: () => {
               this.update();
           }
@@ -38,7 +38,7 @@ export class NavbarComponent implements OnInit {
           label: 'Pessoas',
           items: [{
               label: 'Listar',
-              icon: 'pi pi-list',
+              icon: 'pi pi-align-left',
               url: 'http://angular.io'
           },
           {

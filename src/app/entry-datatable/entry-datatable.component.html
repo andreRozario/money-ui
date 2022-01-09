@@ -1,0 +1,46 @@
+<p-table [value]="entries" [paginator]="true" [rows]="2" [responsive]="true" styleClass="p-datatable-striped">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Pessoa</th>
+      <th>Descrição</th>
+      <th class="col-date-header">Vencimento</th>
+      <th class="col-date-header">Pagamento</th>
+      <th class="col-type-header">Tipo</th>
+      <th class="col-value-header">Valor</th>
+      <th class="col-actions"></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-entry>
+    <tr>
+      <td>
+        <span class="p-column-title">Pessoa</span>
+        {{ entry.person }}
+      </td>
+      <td>
+        <span class="p-column-title">Descrição</span>
+        {{ entry.description }}
+      </td>
+      <td class="col-date-content">
+        <span class="p-column-title">Vencimento</span>
+        {{ entry.dueDate | date: 'dd/MM/y' }}
+      </td>
+      <td class="col-date-content">
+        <span class="p-column-title">Pagamento</span>
+        {{ entry.paymentDate | date: 'dd/MM/y' }}
+      </td>
+      <td class="col-type-content">
+        <span class="p-column-title">Tipo</span>
+        <p-tag styleClass="block text-center" severity="{{ entry.type === 'DESPESA' ? 'danger' : 'primary' }}" value="{{ entry.type }}" [rounded]="true"></p-tag>
+      </td>
+      <td class="col-value-content">
+        <span class="p-column-title">Valor</span>
+        <span [style.color]="entry.type === 'DESPESA' ? '#e25254' : '#1d98d3'">{{ entry.value | currency: 'BRL': 'symbol': '1.2-2' }} </span>
+      </td>
+      <td class="col-actions">
+        <a icon="pi pi-pencil" pButton pTooltip="Editar" tooltipPosition="top"></a>
+        <button class="p-button-danger" icon="pi pi-trash" pButton pTooltip="Deletar" tooltipPosition="top"></button>
+      </td>
+    </tr>
+  </ng-template>
+
+</p-table>

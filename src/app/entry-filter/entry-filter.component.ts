@@ -13,19 +13,19 @@ export class EntryFilterComponent implements OnInit {
   }
 
   entries = Array(
-    { type: 'DESPESA', description: 'Compra de pão', dueDate: '30/01/2022',
+    { type: 'DESPESA', description: 'Compra de pão', dueDate: new Date(2022, 0, 30),
       paymentDate: null, value: 4.55, person: 'Padaria do José' },
-    { type: 'RECEITA', description: 'Venda de software', dueDate: '10/01/2022',
-      paymentDate: '09/01/2022', value: 80000, person: 'Atacado Brasil' },
-    { type: 'DESPESA', description: 'Impostos', dueDate: '20/02/2022',
+    { type: 'RECEITA', description: 'Venda de software', dueDate:  new Date(2022, 0, 10),
+      paymentDate:  new Date(2022, 0, 9), value: 80000, person: 'Atacado Brasil' },
+    { type: 'DESPESA', description: 'Impostos', dueDate:  new Date(2022, 1, 20),
       paymentDate: null, value: 14312, person: 'Ministério da Fazenda' },
-    { type: 'DESPESA', description: 'Mensalidade de escola', dueDate: '05/01/2022',
-      paymentDate: '30/05/2022', value: 800, person: 'Escola Abelha Rainha' },
-    { type: 'RECEITA', description: 'Venda de carro', dueDate: '18/08/2022',
+    { type: 'DESPESA', description: 'Mensalidade de escola', dueDate:  new Date(2022, 0, 5),
+      paymentDate:  new Date(2022, 4, 30), value: 800, person: 'Escola Abelha Rainha' },
+    { type: 'RECEITA', description: 'Venda de carro', dueDate:  new Date(2022, 7, 18),
       paymentDate: null, value: 55000, person: 'Sebastião Souza' },
-    { type: 'DESPESA', description: 'Aluguel', dueDate: '10/02/2022',
-      paymentDate: '09/02/2022', value: 1750, person: 'Casa Nova Imóveis' },
-    { type: 'DESPESA', description: 'Mensalidade musculação', dueDate: '13/02/2022',
+    { type: 'DESPESA', description: 'Aluguel', dueDate:  new Date(2022, 1, 10),
+      paymentDate:  new Date(2022, 1, 9), value: 1750, person: 'Casa Nova Imóveis' },
+    { type: 'DESPESA', description: 'Mensalidade musculação', dueDate:  new Date(2022, 1, 17),
       paymentDate: null, value: 180, person: 'Academia Top' }
   );
 

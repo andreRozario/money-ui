@@ -1,0 +1,148 @@
+<div class="container">
+
+  <h1>Novo Lançamento</h1>
+
+  <p-card [style]="{'background-color': '#252f3d'}">
+
+    <form autocomplete="off" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <div class="formgrid grid">
+
+        <div class="col-12 mb-3">
+
+          <p-selectButton formControlName="type" [options]="types" optionLabel="label" optionValue="value" #type></p-selectButton>
+
+        </div>
+
+      </div>
+
+      <div class="formgrid grid">
+
+        <div class="col-12 md:col-3 sm:col-6 mt-4">
+
+          <div class="field">
+            <span class="p-float-label">
+              <p-calendar inputId="dueDate" class="p-inputtext-lg" aria-describedby="dueDate-help" formControlName="dueDate" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
+              <label for="dueDate">Vencimento</label>
+            </span>
+          </div>
+
+          <small id="dueDate-help" class="p-error" *ngIf="dueDate.hasError('required') && dueDate.dirty">
+            Campo vencimento é obrigatório
+          </small>
+
+        </div>
+
+        <div class="col-12 md:col-3 sm:col-6 mt-4">
+
+          <div class="field">
+            <span class="p-float-label">
+              <p-calendar  class="p-inputtext-lg" inputId="paymentDate" formControlName="paymentDate" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
+              <label for="paymentDate">{{ type.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="formgrid grid">
+
+        <div class="col-12 md:col-8 sm:col-6 mt-4">
+
+          <div class="field p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-check-circle"></i></span>
+            <span class="p-float-label">
+              <input id="description" class="p-inputtext-lg" type="text" aria-describedby="description-help" formControlName="description" pInputText>
+              <label for="description">Descrição</label>
+            </span>
+          </div>
+
+          <app-message id="description-help" [control]="description" state="dirty" error="required" text="Campo descrição é obrigatório"></app-message>
+          <app-message id="description-help" [control]="description" state="dirty" error="minlength" text="Mínimo de {{ description.errors?.minlength?.requiredLength }} caracteres. Você digitou apenas {{ description.errors?.minlength?.actualLength }}"></app-message>
+
+        </div>
+
+        <div class="col-12 md:col-4 sm:col-6 mt-4">
+
+          <div class="field p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-dollar"></i></span>
+            <span class="p-float-label">
+              <p-inputNumber inputId="value" inputStyleClass="p-inputtext-lg border-noround--left" aria-describedby="value-help" formControlName="value" mode="decimal" locale="pt-BR" [minFractionDigits]="2"></p-inputNumber>
+              <label for="value">Valor</label>
+            </span>
+          </div>
+
+          <app-message id="value-help" [control]="value" state="touched" error="required" text="Campo valor é obrigatório"></app-message>
+
+        </div>
+
+      </div>
+
+      <div class="formgrid grid">
+
+        <div class="col-12 md:col-4 sm:col-6 mt-4">
+
+          <div class="field p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-tag"></i></span>
+            <span class="p-float-label">
+              <p-dropdown inputId="category" [options]="categories" aria-describedby="category-help" formControlName="category" optionLabel="label" optionValue="value" placeholder=" " [filter]="true"
+                emptyFilterMessage="Nenhum Resultado" styleClass="p-inputtext p-inputtext-lg h-3rem border-noround--left"></p-dropdown>
+              <label for="category">Categoria</label>
+            </span>
+          </div>
+
+          <app-message id="category-help" [control]="category" state="touched" error="required" text="Campo categoria é obrigatório"></app-message>
+
+        </div>
+
+        <div class="col-12 md:col-8 sm:col-6 mt-4">
+
+          <div class="field p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <span class="p-float-label">
+              <p-dropdown inputId="person" [options]="persons" aria-describedby="person-help" formControlName="person" optionLabel="label" optionValue="value" placeholder=" " [filter]="true"
+                emptyFilterMessage="Nenhum Resultado Encontrado" styleClass="p-inputtext p-inputtext-lg h-3rem border-noround--left"></p-dropdown>
+              <label for="person">Pessoa</label>
+            </span>
+          </div>
+
+          <app-message id="person-help" [control]="person" state="touched" error="required" text="Campo pessoa é obrigatório"></app-message>
+
+        </div>
+
+      </div>
+
+      <div class="formgrid grid">
+
+        <div class="col-12 mt-4">
+
+          <div class="field p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-check-circle"></i></span>
+            <span class="p-float-label">
+              <textarea  id="observation" formControlName="observation" rows="5" pInputTextarea></textarea>
+              <label for="observation">Observação</label>
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="formgrid grid">
+
+        <div class="col-12 mt-4">
+
+          <button class="mr-2" type="submit" label="Salvar" pButton [disabled]="!form.valid"></button>
+          <button class="p-button-secondary mr-2" type="button" label="Novo" pButton></button>
+          <button class="p-button-info p-button-text" type="button" label="Voltar para pesquisa" pButton></button>
+
+        </div>
+
+      </div>
+
+    </form>
+
+  </p-card>
+
+</div>

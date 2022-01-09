@@ -1,0 +1,47 @@
+<div class="container">
+
+  <h1>Pessoas</h1>
+
+  <p-card [style]="{'background-color': '#252f3d'}">
+
+    <div class="formgrid grid">
+
+      <div class="col-12">
+
+        <div class="field p-inputgroup">
+          <span class="p-inputgroup-addon"><i class="pi pi-check-circle"></i></span>
+          <span class="p-float-label">
+            <input id="name" class="p-inputtext-lg" type="text" pInputText>
+            <label for="name">Nome</label>
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <ng-template pTemplate="footer">
+      <button type="submit" label="Pesquisar" pButton></button>
+    </ng-template>
+
+  </p-card>
+
+  <div class="grid-nogutter mt-4">
+
+    <div class="col">
+
+      <app-person-datatable [persons]="persons"></app-person-datatable>
+
+    </div>
+
+  </div>
+
+  <div class="grid-nogutter mt-4">
+
+    <div class="col">
+      <a label="Nova Pessoa" pButton></a>
+    </div>
+
+  </div>
+
+</div>
