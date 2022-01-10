@@ -27,9 +27,7 @@
             </span>
           </div>
 
-          <small id="dueDate-help" class="p-error" *ngIf="dueDate.hasError('required') && dueDate.dirty">
-            Campo vencimento é obrigatório
-          </small>
+          <app-message id="dueDate-help" [control]="dueDate" state="dirty" error="required" text="Campo vencimento é obrigatório"></app-message>
 
         </div>
 

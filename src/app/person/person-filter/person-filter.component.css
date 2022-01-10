@@ -1,4 +1,4 @@
-.col-state {
+:host ::ng-deep .col-state {
   width: 120px;
   text-align: center!important;
 }

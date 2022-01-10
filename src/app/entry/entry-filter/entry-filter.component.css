@@ -1,17 +1,17 @@
-.col-type-header {
+:host ::ng-deep .col-type-header {
   width: 120px;
   text-align: center!important;
 }
 
-.col-type-content {
+:host ::ng-deep .col-type-content {
   text-transform: uppercase!important;
 }
 
-.col-value-header {
+:host ::ng-deep .col-value-header {
   width: 120px;
   text-align: right!important;
 }
 
-.col-value-content {
+:host ::ng-deep .col-value-content {
   text-align: right!important;
 }
