@@ -2,57 +2,59 @@
 
   <h1>Lançamentos</h1>
 
-  <p-card [style]="{'background-color': '#252f3d'}">
+  <form autocomplete="off" (ngSubmit)="summarize()">
 
-    <div class="formgrid grid">
+    <p-card [style]="{'background-color': '#252f3d'}">
 
-      <div class="col-12">
+      <div class="formgrid grid">
 
-        <div class="field p-inputgroup">
-          <span class="p-inputgroup-addon"><i class="pi pi-check-circle"></i></span>
-          <span class="p-float-label">
-            <input id="description" class="p-inputtext-lg" type="text" pInputText>
-            <label for="description">Descrição</label>
-          </span>
+        <div class="col-12">
+
+          <div class="field p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-check-circle"></i></span>
+            <span class="p-float-label">
+              <input id="description" class="p-inputtext-lg" type="text" name="description" [(ngModel)]="description" pInputText>
+              <label for="description">Descrição</label>
+            </span>
+          </div>
+
         </div>
 
       </div>
 
-    </div>
+      <div class="formgrid grid">
 
-    <div class="formgrid grid">
+        <div class="col-12 md:col-4 sm:col-6 mt-4">
 
-      <div class="col-12 md:col-4 sm:col-6 mt-4">
+          <div class="field">
+            <span class="p-float-label">
+              <p-calendar inputId="dueDateFrom" class="p-inputtext-lg" name="dueDateFrom" [(ngModel)]="dueDateFrom" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
+              <label for="dueDateFrom">Vencimento de:</label>
+            </span>
+          </div>
 
-        <div class="field p-inputgroup">
-          <span class="p-inputgroup-addon"><i class="pi pi-calendar"></i></span>
-          <span class="p-float-label">
-            <input id="dueDateFrom" class="p-inputtext-lg" type="text" pInputText>
-            <label for="dueDateFrom">Vencimento de:</label>
-          </span>
+        </div>
+
+        <div class="col-12 md:col-4 sm:col-6 mt-4">
+
+          <div class="field">
+            <span class="p-float-label">
+              <p-calendar inputId="dueDateTo" class="p-inputtext-lg" name="dueDateTo" [(ngModel)]="dueDateTo" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
+              <label for="dueDateTo">Vencimento até:</label>
+            </span>
+          </div>
+
         </div>
 
       </div>
 
-      <div class="col-12 md:col-4 sm:col-6 mt-4">
+      <ng-template pTemplate="footer">
+        <button type="submit" label="Pesquisar" pButton></button>
+      </ng-template>
 
-        <div class="field p-inputgroup">
-          <span class="p-inputgroup-addon"><i class="pi pi-calendar"></i></span>
-          <span class="p-float-label">
-            <input id="dueDateTo" class="p-inputtext-lg" type="text" pInputText>
-            <label for="dueDateTo">Vencimento até:</label>
-          </span>
-        </div>
+    </p-card>
 
-      </div>
-
-    </div>
-
-    <ng-template pTemplate="footer">
-      <button type="submit" label="Pesquisar" pButton></button>
-    </ng-template>
-
-  </p-card>
+  </form>
 
   <div class="grid-nogutter mt-4">
 

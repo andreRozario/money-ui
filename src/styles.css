@@ -49,9 +49,9 @@ h1 {
 
 /* HACKS */
 
-.p-paginator .p-paginator-pages .p-paginator-page {
+/* .p-paginator .p-paginator-pages .p-paginator-page {
   margin: unset;
-}
+} */
 
 .p-datatable .p-datatable-thead > tr > th {
   background-color: #161c25;

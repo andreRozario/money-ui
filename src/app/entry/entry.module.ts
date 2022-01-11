@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
@@ -9,6 +9,7 @@ import { CardModule } from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
@@ -19,11 +20,11 @@ import { SharedModule } from '../shared/shared.module';
 import { EntryCreateComponent } from './entry-create/entry-create.component';
 import { EntryFilterComponent } from './entry-filter/entry-filter.component';
 import { EntryDatatableComponent } from './entry-datatable/entry-datatable.component';
-import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
 
     ButtonModule,
@@ -31,8 +32,8 @@ import { InputTextModule } from 'primeng/inputtext';
     CardModule,
     DropdownModule,
     InputNumberModule,
-    InputTextModule,
     InputTextareaModule,
+    InputTextModule,
     SelectButtonModule,
     TableModule,
     TagModule,
@@ -48,6 +49,6 @@ import { InputTextModule } from 'primeng/inputtext';
   exports: [
     EntryCreateComponent,
     EntryFilterComponent,
-  ],
+  ]
 })
 export class EntryModule { }

@@ -1,6 +1,8 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe, registerLocaleData } from '@angular/common';
+
+import localePt from '@angular/common/locales/pt';
 
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
@@ -10,6 +12,8 @@ import { SharedModule } from 'primeng/api';
 import { SidebarModule } from 'primeng/sidebar';
 
 import { NavbarComponent } from './navbar/navbar.component';
+
+registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({
   imports: [
@@ -27,6 +31,10 @@ import { NavbarComponent } from './navbar/navbar.component';
   ],
   exports: [
     NavbarComponent
+  ],
+  providers: [
+    DatePipe,
+    { provide: LOCALE_ID, useValue: 'pt-BR' }
   ]
 })
 export class CoreModule { }

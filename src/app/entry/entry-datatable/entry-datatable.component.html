@@ -1,4 +1,12 @@
-<p-table [value]="entries" [paginator]="true" [rows]="2" [responsive]="true" styleClass="p-datatable-striped">
+<p-table [value]="entries" [paginator]="true" [rows]="10" [responsive]="true" styleClass="p-datatable-striped">
+
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+        Lançamentos
+        <p-button icon="pi pi-refresh"></p-button>
+    </div>
+  </ng-template>
+
   <ng-template pTemplate="header">
     <tr>
       <th>Pessoa</th>
@@ -10,6 +18,7 @@
       <th class="col-actions"></th>
     </tr>
   </ng-template>
+
   <ng-template pTemplate="body" let-entry>
     <tr>
       <td>
@@ -41,6 +50,18 @@
         <button class="p-button-danger" icon="pi pi-trash" pButton pTooltip="Deletar" tooltipPosition="top"></button>
       </td>
     </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+        <td colspan="7">Nenhum lançamento encontrado.</td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="summary">
+    <div class="p-d-flex p-ai-center p-jc-between">
+        Existe um total de {{entries ? entries.length : 0 }} Lançamentos.
+    </div>
   </ng-template>
 
 </p-table>
