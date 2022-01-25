@@ -5,13 +5,17 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { DatePipe } from '@angular/common';
 
-export interface EntryFilter {
+export class EntryFilter {
 
    description?: string;
 
    dueDateFrom?: Date;
 
    dueDateTo?: Date;
+
+   page: number = 0;
+
+   size: number = 5;
 }
 
 @Injectable({
@@ -32,6 +36,9 @@ export class EntryService {
 
     let params = new HttpParams();
 
+    params = params.set('page', filter.page);
+    params = params.set('size', filter.size);
+
     if (filter.description)
 
       params = params.set('description', filter.description);
@@ -44,10 +51,24 @@ export class EntryService {
 
       params = params.set('dueDateTo', this.datePipe.transform(filter.dueDateTo, 'yyyy-MM-dd')!);
 
-    return firstValueFrom(this.http.get(`${this.url}?summarize`, { headers, params })).then((response: any) => response['content']);
+    return firstValueFrom(this.http.get(`${this.url}?summarize`, { headers, params })).then((response: any) => {
+
+      const pagination = response;
+
+      const content = response['content'];
+
+      const result = {
+
+        content: content,
+
+        totalElements: pagination['totalElements']
+      }
+
+      return result;
+    });
   }
 }
 
 // cd C:\Users\HellBoy\Documents\Development\Workspace-STS-4-4.13.0\money-api\target
 
-// java -jar money-api-1.0.0-SNAPSHOT.jar --spring.datasource.username=root --spring.datasource.password --moneyapi.allowed-web-application-origin=http://localhost:4200 --spring.profiles.active=oauth-security
+// java -jar money-api-1.0.0-SNAPSHOT.jar --spring.datasource.username=root --spring.datasource.password --moneyapi.allowed-web-application-origin=http://localhost:4200 --spring.profiles.active=basic-security

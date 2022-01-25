@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { LazyLoadEvent } from 'primeng/api';
 
 @Component({
   selector: 'app-entry-datatable',
@@ -8,4 +9,17 @@ import { Component, Input, OnInit } from '@angular/core';
 export class EntryDatatableComponent {
 
   @Input() entries: any[] = [];
+
+  @Input() size!: number;
+
+  @Input() totalElements!: number;
+
+  @Output() onLazyLoad = new EventEmitter();
+
+  LazyLoadEmmiter(event: LazyLoadEvent) {
+
+    const page: number = (event.first! / event.rows!);
+
+    this.onLazyLoad.emit(page);
+  }
 }

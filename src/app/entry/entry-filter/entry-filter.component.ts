@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LazyLoadEvent } from 'primeng/api';
 import { EntryFilter, EntryService } from '../entry.service';
 
 @Component({
@@ -8,32 +9,32 @@ import { EntryFilter, EntryService } from '../entry.service';
 })
 export class EntryFilterComponent implements OnInit {
 
-  description?: string;
-
-  dueDateFrom?: Date;
-
-  dueDateTo?: Date;
+  filter: EntryFilter = new EntryFilter();
 
   entries = Array();
+
+  totalElements: number = 0;
 
   constructor(private service: EntryService) { }
 
   ngOnInit(): void {
 
-    this.summarize();
+    // this.summarize();
   }
 
-  summarize(): Promise<any> {
+  summarize(page: number = 0): Promise<any> {
 
-    const filter: EntryFilter = {
+    this.filter.page = page;
 
-      description: this.description,
+    return this.service.summarize(this.filter).then(result => {
 
-      dueDateFrom: this.dueDateFrom,
+      this.entries = result.content,
+      this.totalElements = result.totalElements
+    });
+  }
 
-      dueDateTo: this.dueDateTo
-    }
+  onPageChange(page: number) {
 
-    return this.service.summarize(filter).then(entries => this.entries = entries);
+    this.summarize(page);
   }
 }

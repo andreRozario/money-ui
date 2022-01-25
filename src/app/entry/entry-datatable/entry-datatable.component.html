@@ -1,4 +1,4 @@
-<p-table [value]="entries" [paginator]="true" [rows]="10" [responsive]="true" styleClass="p-datatable-striped">
+<p-table [value]="entries" [paginator]="true" [rows]="size" [lazy]="true" [totalRecords]="totalElements" (onLazyLoad)="LazyLoadEmmiter($event)" [responsive]="true" styleClass="p-datatable-striped">
 
   <ng-template pTemplate="caption">
     <div class="flex align-items-center justify-content-between">
