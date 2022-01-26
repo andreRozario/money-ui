@@ -8,8 +8,6 @@ import { CoreModule } from './core/core.module';
 import { EntryModule } from './entry/entry.module';
 import { PersonModule } from './person/person.module';
 
-import { EntryService } from './entry/entry.service';
-
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -25,9 +23,7 @@ import { AppComponent } from './app.component';
   declarations: [
     AppComponent
   ],
-  providers: [
-    EntryService
-  ],
-  bootstrap: [AppComponent]
+  providers: [],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

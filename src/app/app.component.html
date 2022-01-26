@@ -1,6 +1,17 @@
 <app-navbar></app-navbar>
 
-<app-entry-filter></app-entry-filter>
+<!-- <app-entry-filter></app-entry-filter> -->
 <!-- <app-entry-create></app-entry-create> -->
-<!-- <app-person-filter></app-person-filter> -->
+<app-person-filter></app-person-filter>
 <!-- <app-person-create></app-person-create> -->
+
+<p-confirmDialog header="Confirmação" icon="pi pi-question-circle" #confirmation>
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" label="Sim"
+      (click)="confirmation.accept()"></button>
+    <button type="button" pButton icon="pi pi-times" label="Não"
+      (click)="confirmation.reject()"></button>
+  </p-footer>
+</p-confirmDialog>
+
+<p-toast></p-toast>

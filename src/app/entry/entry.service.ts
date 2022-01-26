@@ -53,9 +53,9 @@ export class EntryService {
 
     return firstValueFrom(this.http.get(`${this.url}?summarize`, { headers, params })).then((response: any) => {
 
-      const pagination = response;
-
       const content = response['content'];
+
+      const pagination = response;
 
       const result = {
 
@@ -66,6 +66,13 @@ export class EntryService {
 
       return result;
     });
+  }
+
+  deleteById(id: number) {
+
+    const headers = new HttpHeaders().append('Authorization', 'Basic YWRtaW5AbW9uZXkuY29tOmFkbWlu');
+
+    return firstValueFrom(this.http.delete(`${this.url}/${id}`, { headers })).then(() => null);
   }
 }
 

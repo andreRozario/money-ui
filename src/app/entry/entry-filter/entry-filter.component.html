@@ -60,7 +60,8 @@
 
     <div class="col">
 
-      <app-entry-datatable [entries]="entries" [size]="filter.size" [totalElements]="totalElements" (onLazyLoad)="onPageChange($event)"></app-entry-datatable>
+      <app-entry-datatable [entries]="entries" [size]="filter.size" [totalElements]="totalElements"
+        (onLazyLoad)="onPageChange($event)" (onDelete)="confirmation($event)"></app-entry-datatable>
 
     </div>
 

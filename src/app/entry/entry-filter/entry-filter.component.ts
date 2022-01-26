@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+
+import { ConfirmationService, MessageService } from 'primeng/api';
+
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { EntryFilter, EntryService } from '../entry.service';
 
 @Component({
@@ -15,11 +18,15 @@ export class EntryFilterComponent implements OnInit {
 
   totalElements: number = 0;
 
-  constructor(private service: EntryService) { }
+  constructor(
+    private confirmationService: ConfirmationService,
+    private errorHandler: ErrorHandlerService,
+    private messageService: MessageService,
+    private service: EntryService
+  ) { }
 
   ngOnInit(): void {
 
-    // this.summarize();
   }
 
   summarize(page: number = 0): Promise<any> {
@@ -30,11 +37,36 @@ export class EntryFilterComponent implements OnInit {
 
       this.entries = result.content,
       this.totalElements = result.totalElements
-    });
+
+    }).catch(error => this.errorHandler.handle(error));
   }
 
   onPageChange(page: number) {
 
     this.summarize(page);
+  }
+
+  confirmation(object: any) {
+
+    this.confirmationService.confirm({
+
+      message: 'Tem certeza que deseja excluir este Lançamento ?',
+
+      accept: () => {
+
+        this.deleteById(object);
+      }
+    });
+  }
+
+  deleteById(object: any) {
+
+    return this.service.deleteById(object.entry.id).then(() => {
+
+      object.grid.reset();
+
+      this.messageService.add({ severity:'success', summary: 'Sucesso', detail: 'Lançamento excluído dos registros!', icon: 'pi-check-circle' });
+
+    }).catch(error => this.errorHandler.handle(error));
   }
 }

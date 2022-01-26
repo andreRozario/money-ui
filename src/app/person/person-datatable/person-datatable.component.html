@@ -1,4 +1,13 @@
-<p-table [value]="persons" [paginator]="true" [rows]="2" [responsive]="true" styleClass="p-datatable-striped">
+<p-table [value]="persons" [paginator]="true" [rows]="size" [lazy]="true" [totalRecords]="totalElements" (onLazyLoad)="LazyLoadEmmiter($event)"
+  [responsive]="true" styleClass="p-datatable-striped" #table>
+
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      Pessoas
+      <p-button icon="pi pi-refresh"></p-button>
+    </div>
+  </ng-template>
+
   <ng-template pTemplate="header">
     <tr>
       <th>Nome</th>
@@ -8,6 +17,7 @@
       <th class="col-actions"></th>
     </tr>
   </ng-template>
+
   <ng-template pTemplate="body" let-person>
     <tr>
       <td>
@@ -16,21 +26,42 @@
       </td>
       <td>
         <span class="p-column-title">Cidade</span>
-        {{ person.city }}
+        {{ person.address.city.name }}
       </td>
       <td class="col-state">
         <span class="p-column-title">Estado</span>
-        {{ person.state }}
+        {{ person.address.city.state.initials }}
       </td>
       <td class="col-status-title">
         <span class="p-column-title">Status</span>
-        <p-tag styleClass="block text-center" severity="{{ person.status ? 'success' : 'danger' }}" value="{{ person.status ? 'Ativo' : 'Inativo' }}" [rounded]="true"></p-tag>
+
+        <!-- <button pButton type="button" label="{{ person.status ? 'Ativo' : 'Inativo' }}"
+          [pTooltip]="person.status ? 'Inativar' : 'Ativar'" tooltipPosition="top" (click)="StatusUpdateEmitter(person)"
+          class="{{ person.status ? 'p-button-success' : 'p-button-danger' }} p-button-text"></button> -->
+
+        <div #container style="display:block; position:relative">
+          <p-tag styleClass="block text-center cursor-pointer" severity="{{ person.status ? 'success' : 'danger' }}" value="{{ person.status ? 'Ativo' : 'Inativo' }}"
+            [rounded]="true" [pTooltip]="person.status ? 'Inativar' : 'Ativar'" tooltipPosition="top" [appendTo]="container" (click)="StatusUpdateEmitter(person)"></p-tag>
+        </div>
+
       </td>
       <td class="col-actions">
         <a icon="pi pi-pencil" pButton pTooltip="Editar" tooltipPosition="top"></a>
-        <button  class="p-button-danger" icon="pi pi-trash" pButton pTooltip="Deletar" tooltipPosition="top"></button>
+        <button  class="p-button-danger" icon="pi pi-trash" pButton pTooltip="Deletar" tooltipPosition="top" (click)="DeleteByIdEmitter({ person, grid })"></button>
       </td>
     </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="7">Nenhum registro encontrado.</td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="summary">
+    <div class="p-d-flex p-ai-center p-jc-between">
+      Existe um total de  {{ totalElements }} Pessoa(s) sendo exibido {{ persons ? persons.length : 0 }} por página
+    </div>
   </ng-template>
 
 </p-table>

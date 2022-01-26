@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { LazyLoadEvent } from 'primeng/api';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-person-datatable',
@@ -8,4 +10,33 @@ import { Component, Input, OnInit } from '@angular/core';
 export class PersonDatatableComponent {
 
   @Input() persons: any[] = [];
+
+  @Input() size!: number;
+
+  @Input() totalElements!: number;
+
+  @Output() onLazyLoad = new EventEmitter();
+
+  @Output() onDelete = new EventEmitter();
+
+  @Output() onStatusUpdate = new EventEmitter();
+
+  @ViewChild('table') grid!: Table;
+
+  LazyLoadEmmiter(event: LazyLoadEvent): void {
+
+    const page: number = (event.first! / event.rows!);
+
+    this.onLazyLoad.emit(page);
+  }
+
+  DeleteByIdEmitter(object: any): void { // object = { person, grid }
+
+    this.onDelete.emit(object);
+  }
+
+  StatusUpdateEmitter(person: any): void { // person = { person.id, person.status, ... }
+
+    this.onStatusUpdate.emit(person);
+  }
 }

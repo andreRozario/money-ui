@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+
 import { LazyLoadEvent } from 'primeng/api';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-entry-datatable',
@@ -16,10 +18,19 @@ export class EntryDatatableComponent {
 
   @Output() onLazyLoad = new EventEmitter();
 
-  LazyLoadEmmiter(event: LazyLoadEvent) {
+  @Output() onDelete = new EventEmitter();
+
+  @ViewChild('table') grid!: Table;
+
+  LazyLoadEmitter(event: LazyLoadEvent) {
 
     const page: number = (event.first! / event.rows!);
 
     this.onLazyLoad.emit(page);
+  }
+
+  DeleteByIdEmitter(object: any) { // object = { entry, grid }
+
+    this.onDelete.emit(object);
   }
 }

@@ -94,3 +94,33 @@ p-inputnumber.ng-touched.ng-invalid > .p-inputnumber > .p-inputtext, p-dropdown.
 .p-float-label > p-inputnumber .p-inputnumber-input.p-filled {
   color: #ffffff;
 }
+
+/* TOAST */
+
+.p-toast .p-toast-message.p-toast-message-success  {
+    background-color: #C8E6C9;
+    border: solid #439446;
+    border-width: 0 0 0 6px;
+    color: #224a23;
+}
+
+.p-toast .p-toast-message.p-toast-message-info {
+  background: #B3E5FC;
+  border: solid #0891cf;
+  border-width: 0 0 0 6px;
+  color: #044868;
+}
+
+.p-toast .p-toast-message.p-toast-message-warn {
+  background: #FFECB3;
+  border: solid #d9a300;
+  border-width: 0 0 0 6px;
+  color: #6d5100;
+}
+
+.p-toast .p-toast-message.p-toast-message-error {
+  background: #FFCDD2;
+  border: solid #e60017;
+  border-width: 0 0 0 6px;
+  color: #73000c;
+}

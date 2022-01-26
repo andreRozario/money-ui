@@ -1,9 +1,10 @@
-<p-table [value]="entries" [paginator]="true" [rows]="size" [lazy]="true" [totalRecords]="totalElements" (onLazyLoad)="LazyLoadEmmiter($event)" [responsive]="true" styleClass="p-datatable-striped">
+<p-table [value]="entries" [paginator]="true" [rows]="size" [lazy]="true" [totalRecords]="totalElements" (onLazyLoad)="LazyLoadEmitter($event)"
+  [responsive]="true" styleClass="p-datatable-striped" #table>
 
   <ng-template pTemplate="caption">
     <div class="flex align-items-center justify-content-between">
-        Lançamentos
-        <p-button icon="pi pi-refresh"></p-button>
+      Lançamentos
+      <p-button icon="pi pi-refresh"></p-button>
     </div>
   </ng-template>
 
@@ -47,20 +48,20 @@
       </td>
       <td class="col-actions">
         <a icon="pi pi-pencil" pButton pTooltip="Editar" tooltipPosition="top"></a>
-        <button class="p-button-danger" icon="pi pi-trash" pButton pTooltip="Deletar" tooltipPosition="top"></button>
+        <button class="p-button-danger" icon="pi pi-trash" pButton pTooltip="Deletar" tooltipPosition="top" (click)="DeleteByIdEmitter({ entry, grid })"></button>
       </td>
     </tr>
   </ng-template>
 
   <ng-template pTemplate="emptymessage">
     <tr>
-        <td colspan="7">Nenhum lançamento encontrado.</td>
+      <td colspan="7">Nenhum registro encontrado.</td>
     </tr>
   </ng-template>
 
   <ng-template pTemplate="summary">
     <div class="p-d-flex p-ai-center p-jc-between">
-        Existe um total de {{entries ? entries.length : 0 }} Lançamentos.
+      Existe um total de  {{ totalElements }} Lançamento(s) sendo exibido {{ entries ? entries.length : 0 }} por página
     </div>
   </ng-template>
 
