@@ -35,19 +35,15 @@
       <td class="col-status-title">
         <span class="p-column-title">Status</span>
 
-        <!-- <button pButton type="button" label="{{ person.status ? 'Ativo' : 'Inativo' }}"
-          [pTooltip]="person.status ? 'Inativar' : 'Ativar'" tooltipPosition="top" (click)="StatusUpdateEmitter(person)"
-          class="{{ person.status ? 'p-button-success' : 'p-button-danger' }} p-button-text"></button> -->
-
-        <div #container style="display:block; position:relative">
-          <p-tag styleClass="block text-center cursor-pointer" severity="{{ person.status ? 'success' : 'danger' }}" value="{{ person.status ? 'Ativo' : 'Inativo' }}"
-            [rounded]="true" [pTooltip]="person.status ? 'Inativar' : 'Ativar'" tooltipPosition="top" [appendTo]="container" (click)="StatusUpdateEmitter(person)"></p-tag>
-        </div>
+        <a href="javascript:;" [pTooltip]="person.status ? 'Inativar' : 'Ativar'" tooltipPosition="top" (click)="StatusUpdateEmitter(person)"
+          class="p-tag block text-center no-underline" [ngClass]="{'p-tag-success' : person.status, 'p-tag-danger' : !person.status}" [ngStyle]="{'border-radius':'10rem'}">
+          {{ person.status ? 'Ativo' : 'Inativo' }}
+        </a>
 
       </td>
       <td class="col-actions">
         <a icon="pi pi-pencil" pButton pTooltip="Editar" tooltipPosition="top"></a>
-        <button  class="p-button-danger" icon="pi pi-trash" pButton pTooltip="Deletar" tooltipPosition="top" (click)="DeleteByIdEmitter({ person, grid })"></button>
+        <button class="p-button-danger" icon="pi pi-trash" pButton pTooltip="Deletar" tooltipPosition="top" (click)="DeleteByIdEmitter({ person, grid })"></button>
       </td>
     </tr>
   </ng-template>

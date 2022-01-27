@@ -20,6 +20,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 import { ErrorHandlerService } from './error-handler.service';
+import { CategoryService } from '../category/category.service';
 import { EntryService } from '../entry/entry.service';
 import { PersonService } from '../person/person.service';
 
@@ -68,6 +69,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     TranslateService,
 
     ErrorHandlerService,
+    CategoryService,
     EntryService,
     PersonService,
 

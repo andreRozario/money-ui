@@ -27,7 +27,7 @@
             </span>
           </div>
 
-          <app-message id="dueDate-help" [control]="dueDate" state="dirty" error="required" text="Campo vencimento é obrigatório"></app-message>
+          <app-message id="dueDate-help" [control]="f['dueDate']" state="dirty" error="required" text="Campo vencimento é obrigatório"></app-message>
 
         </div>
 
@@ -35,7 +35,7 @@
 
           <div class="field">
             <span class="p-float-label">
-              <p-calendar  class="p-inputtext-lg" inputId="paymentDate" formControlName="paymentDate" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
+              <p-calendar inputId="paymentDate" class="p-inputtext-lg" formControlName="paymentDate" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
               <label for="paymentDate">{{ type.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
             </span>
           </div>
@@ -56,8 +56,8 @@
             </span>
           </div>
 
-          <app-message id="description-help" [control]="description" state="dirty" error="required" text="Campo descrição é obrigatório"></app-message>
-          <app-message id="description-help" [control]="description" state="dirty" error="minlength" text="Mínimo de {{ description.errors?.minlength?.requiredLength }} caracteres. Você digitou apenas {{ description.errors?.minlength?.actualLength }}"></app-message>
+          <app-message id="description-help" [control]="f['description']" state="dirty" error="required" text="Campo descrição é obrigatório"></app-message>
+          <app-message id="description-help" [control]="f['description']" state="dirty" error="minlength" text="Mínimo de {{ f['description'].errors?.['minlength']?.requiredLength }} caracteres. Você digitou apenas {{ f['description'].errors?.['minlength']?.actualLength }}"></app-message>
 
         </div>
 
@@ -71,7 +71,7 @@
             </span>
           </div>
 
-          <app-message id="value-help" [control]="value" state="touched" error="required" text="Campo valor é obrigatório"></app-message>
+          <app-message id="value-help" [control]="f['value']" state="touched" error="required" text="Campo valor é obrigatório"></app-message>
 
         </div>
 
@@ -90,7 +90,7 @@
             </span>
           </div>
 
-          <app-message id="category-help" [control]="category" state="touched" error="required" text="Campo categoria é obrigatório"></app-message>
+          <app-message id="category-help" [control]="f['category']" state="touched" error="required" text="Campo categoria é obrigatório"></app-message>
 
         </div>
 
@@ -105,7 +105,7 @@
             </span>
           </div>
 
-          <app-message id="person-help" [control]="person" state="touched" error="required" text="Campo pessoa é obrigatório"></app-message>
+          <app-message id="person-help" [control]="f['person']" state="touched" error="required" text="Campo pessoa é obrigatório"></app-message>
 
         </div>
 

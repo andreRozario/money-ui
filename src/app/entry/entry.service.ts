@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { firstValueFrom } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import { Entry } from '../_model/entry';
 
 export class EntryFilter {
 
@@ -65,6 +66,18 @@ export class EntryService {
       }
 
       return result;
+    });
+  }
+
+  save(entry: Entry): Promise<Entry> {
+
+    const headers = new HttpHeaders()
+      .append('Authorization', 'Basic YWRtaW5AbW9uZXkuY29tOmFkbWlu')
+      .append('Content-Type', 'application/json');
+
+    return firstValueFrom(this.http.post<Entry>(this.url, Entry.toJson(entry, this.datePipe), { headers })).then((response: Entry) => {
+
+      return response;
     });
   }
 

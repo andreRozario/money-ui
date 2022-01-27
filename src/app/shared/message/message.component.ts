@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { AbstractControl, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-message',
@@ -14,7 +14,7 @@ import { FormControl } from '@angular/forms';
 export class MessageComponent {
 
   @Input() id: string = '';
-  @Input() control: FormControl = new FormControl();
+  @Input() control!: AbstractControl;
   @Input() state: string = '';
   @Input() error: string = '';
   @Input() text: string = '';
