@@ -18,116 +18,122 @@
             </span>
           </div>
 
-          <app-message id="name-help" [control]="name" state="dirty" error="required" text="Campo nome é obrigatório"></app-message>
-          <app-message id="name-help" [control]="name" state="dirty" error="minlength" text="Mínimo de {{ name.errors?.minlength?.requiredLength }} caracteres. Você digitou apenas {{ name.errors?.minlength?.actualLength }}"></app-message>
+          <app-message id="name-help" [control]="f['name']" state="dirty" error="required" text="Campo nome é obrigatório"></app-message>
+          <app-message id="name-help" [control]="f['name']" state="dirty" error="minlength" text="Mínimo de {{ f['name'].errors?.['minlength']?.requiredLength }} caracteres. Você digitou apenas {{ f['name'].errors?.['minlength']?.actualLength }}"></app-message>
 
         </div>
 
       </div>
 
-      <div class="formgrid grid">
+      <div formGroupName="address">
 
-        <div class="col-12 md:col-9 sm:col-7 mt-4">
+        <div class="formgrid grid">
 
-          <div class="field p-inputgroup">
-            <span class="p-inputgroup-addon"><i class="pi pi-map-marker"></i></span>
-            <span class="p-float-label">
-              <input id="location" class="p-inputtext-lg" type="text" formControlName="location" pInputText>
-              <label for="location">Logradouro</label>
-            </span>
+          <div class="col-12 md:col-9 sm:col-7 mt-4">
+
+            <div class="field p-inputgroup">
+              <span class="p-inputgroup-addon"><i class="pi pi-map-marker"></i></span>
+              <span class="p-float-label">
+                <input id="location" class="p-inputtext-lg" type="text" formControlName="location" pInputText>
+                <label for="location">Logradouro</label>
+              </span>
+            </div>
+
+            <app-message id="location-help" [control]="f['address'].get('location')" state="dirty" error="required" text="Campo logradouro é obrigatório"></app-message>
+
           </div>
 
-          <app-message id="location-help" [control]="location" state="dirty" error="required" text="Campo logradouro é obrigatório"></app-message>
+          <div class="col-12 md:col-3 sm:col-5 mt-4">
 
-        </div>
+            <div class="field p-inputgroup">
+              <span class="p-inputgroup-addon"><i class="pi pi-check-circle"></i></span>
+              <span class="p-float-label">
+                <input id="number" class="p-inputtext-lg" type="text" formControlName="number" pInputText>
+                <label for="number">Número</label>
+              </span>
+            </div>
 
-        <div class="col-12 md:col-3 sm:col-5 mt-4">
+            <app-message id="number-help" [control]="f['address'].get('number')" state="dirty" error="required" text="Campo número é obrigatório"></app-message>
 
-          <div class="field p-inputgroup">
-            <span class="p-inputgroup-addon"><i class="pi pi-check-circle"></i></span>
-            <span class="p-float-label">
-              <input id="number" class="p-inputtext-lg" type="text" formControlName="number" pInputText>
-              <label for="number">Número</label>
-            </span>
-          </div>
-
-          <app-message id="number-help" [control]="number" state="dirty" error="required" text="Campo número é obrigatório"></app-message>
-
-        </div>
-
-      </div>
-
-      <div class="formgrid grid">
-
-        <div class="col-12 md:col-5 sm:col-4 mt-4">
-
-          <div class="field p-inputgroup">
-            <span class="p-inputgroup-addon"><i class="pi pi-box"></i></span>
-            <span class="p-float-label">
-              <input id="complement" class="p-inputtext-lg" type="text" formControlName="complement" pInputText>
-              <label for="complement">Complemento</label>
-            </span>
           </div>
 
         </div>
 
-        <div class="col-12 md:col-4 sm:col-4 mt-4">
+        <div class="formgrid grid">
 
-          <div class="field p-inputgroup">
-            <span class="p-inputgroup-addon"><i class="pi pi-flag"></i></span>
-            <span class="p-float-label">
-              <input id="district" class="p-inputtext-lg" type="text" formControlName="district" pInputText>
-              <label for="district">Bairro</label>
-            </span>
+          <div class="col-12 md:col-5 sm:col-4 mt-4">
+
+            <div class="field p-inputgroup">
+              <span class="p-inputgroup-addon"><i class="pi pi-box"></i></span>
+              <span class="p-float-label">
+                <input id="complement" class="p-inputtext-lg" type="text" formControlName="complement" pInputText>
+                <label for="complement">Complemento</label>
+              </span>
+            </div>
+
           </div>
 
-          <app-message id="district-help" [control]="district" state="dirty" error="required" text="Campo bairro é obrigatório"></app-message>
+          <div class="col-12 md:col-4 sm:col-4 mt-4">
+
+            <div class="field p-inputgroup">
+              <span class="p-inputgroup-addon"><i class="pi pi-flag"></i></span>
+              <span class="p-float-label">
+                <input id="district" class="p-inputtext-lg" type="text" formControlName="district" pInputText>
+                <label for="district">Bairro</label>
+              </span>
+            </div>
+
+            <app-message id="district-help" [control]="f['address'].get('district')" state="dirty" error="required" text="Campo bairro é obrigatório"></app-message>
+
+          </div>
+
+          <div class="col-12 md:col-3 sm:col-4 mt-4">
+
+            <div class="field p-inputgroup">
+              <span class="p-inputgroup-addon"><i class="pi pi-bookmark"></i></span>
+              <span class="p-float-label">
+                <p-inputMask inputId="zipcode" styleClass="p-inputtext-lg w-full border-noround--left" formControlName="zipcode" mask="99.999-999"></p-inputMask>
+                <label for="zipcode">CEP</label>
+              </span>
+            </div>
+
+            <app-message id="zipcode-help" [control]="f['address'].get('zipcode')" state="dirty" error="required" text="Campo CEP é obrigatório"></app-message>
+
+          </div>
 
         </div>
 
-        <div class="col-12 md:col-3 sm:col-4 mt-4">
+        <div class="formgrid grid" formGroupName="city">
 
-          <div class="field p-inputgroup">
-            <span class="p-inputgroup-addon"><i class="pi pi-bookmark"></i></span>
-            <span class="p-float-label">
-              <p-inputMask inputId="zipcode" styleClass="p-inputtext-lg w-full border-noround--left" formControlName="zipcode" mask="99.999-999"></p-inputMask>
-              <label for="zipcode">CEP</label>
-            </span>
+          <div class="col-12 md:col-9 sm:col-7 mt-4">
+
+            <div class="field p-inputgroup">
+              <span class="p-inputgroup-addon"><i class="pi pi-map"></i></span>
+              <span class="p-float-label">
+                <p-dropdown inputId="city" [options]="cities" aria-describedby="city-help" formControlName="id" optionLabel="label" optionValue="value" placeholder=" " [filter]="true"
+                  emptyFilterMessage="Nenhum Resultado Encontrado" styleClass="p-inputtext p-inputtext-lg h-3rem border-noround--left"></p-dropdown>
+                <label for="city">Cidade</label>
+              </span>
+            </div>
+
+            <app-message id="city-help" [control]="f['address'].get('city.id')" state="touched" error="required" text="Campo cidade é obrigatório"></app-message>
+
           </div>
 
-          <app-message id="zipcode-help" [control]="zipcode" state="dirty" error="required" text="Campo CEP é obrigatório"></app-message>
+          <div class="col-12 md:col-3 sm:col-5 mt-4" formGroupName="state">
 
-        </div>
+            <div class="field p-inputgroup">
+              <span class="p-inputgroup-addon"><i class="pi pi-compass"></i></span>
+              <span class="p-float-label">
+                <p-dropdown inputId="state" [options]="states" aria-describedby="state-help" formControlName="id" optionLabel="label" optionValue="value" placeholder=" " [filter]="true"
+                  emptyFilterMessage="Nenhum Resultado Encontrado" styleClass="p-inputtext p-inputtext-lg h-3rem border-noround--left"></p-dropdown>
+                <label for="state">Estado</label>
+              </span>
+            </div>
 
-      </div>
+            <app-message id="state-help" [control]="f['address'].get('city.state.id')" state="touched" error="required" text="Campo estado é obrigatório"></app-message>
 
-      <div class="formgrid grid">
-
-        <div class="col-12 md:col-9 sm:col-7 mt-4">
-
-          <div class="field p-inputgroup">
-            <span class="p-inputgroup-addon"><i class="pi pi-map"></i></span>
-            <span class="p-float-label">
-              <input id="city" class="p-inputtext-lg" type="text" formControlName="city" pInputText>
-              <label for="city">Cidade</label>
-            </span>
           </div>
-
-          <app-message id="city-help" [control]="city" state="dirty" error="required" text="Campo cidade é obrigatório"></app-message>
-
-        </div>
-
-        <div class="col-12 md:col-3 sm:col-5 mt-4">
-
-          <div class="field p-inputgroup">
-            <span class="p-inputgroup-addon"><i class="pi pi-compass"></i></span>
-            <span class="p-float-label">
-              <input id="state" class="p-inputtext-lg" type="text" formControlName="state" pInputText>
-              <label for="state">Estado</label>
-            </span>
-          </div>
-
-          <app-message id="state-help" [control]="state" state="dirty" error="required" text="Campo estado é obrigatório"></app-message>
 
         </div>
 

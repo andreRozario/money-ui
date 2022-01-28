@@ -15,17 +15,12 @@ export class Entry {
   category = new Category();
   person = new Person();
 
-  static toJson(entry: Entry, datePipe: DatePipe): any {
-
-    console.log(datePipe.transform(entry.dueDate, 'dd/MM/yyyy'));
-
+  static dateFormat(entry: Entry, datePipe: DatePipe): any {
 
     return {
       ...entry,
       dueDate: datePipe.transform(entry.dueDate, 'dd/MM/yyyy'),
-      paymentDate: datePipe.transform(entry.paymentDate, 'dd/MM/yyyy'),
-      category: { id: entry.category },
-      person: { id: entry.person }
+      paymentDate: datePipe.transform(entry.paymentDate, 'dd/MM/yyyy')
     };
   }
 }

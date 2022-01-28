@@ -25,6 +25,7 @@ import { EntryService } from '../entry/entry.service';
 import { PersonService } from '../person/person.service';
 
 import localePt from '@angular/common/locales/pt';
+import { StateService } from '../state/state.service';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -72,6 +73,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     CategoryService,
     EntryService,
     PersonService,
+    StateService,
 
     { provide: LOCALE_ID, useValue: 'pt-BR' }
   ]

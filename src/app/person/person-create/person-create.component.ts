@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-class Person {
+import { MessageService } from 'primeng/api';
 
-  name: string = '';
-  location: string = '';
-  number: string = '';
-  complement: string = '';
-  district: string = '';
-  zipcode: string = '';
-  city: any = undefined;
-  state: any = undefined;
-}
+import { CityService } from 'src/app/city/city.service';
+import { PersonService } from '../person.service';
+import { StateService } from 'src/app/state/state.service';
+
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+
+import { Person } from 'src/app/_model/person';
 
 @Component({
   selector: 'app-person-create',
@@ -20,62 +18,38 @@ class Person {
 })
 export class PersonCreateComponent implements OnInit {
 
-  person: Person = new Person();
-
   form: FormGroup = new FormGroup({});
 
-  constructor(private formBuilder: FormBuilder) {}
+  cities: any[] = [];
+
+  states: any[] = [];
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private cityService: CityService,
+    private personService: PersonService,
+    private stateService: StateService,
+    private messageService: MessageService,
+    private errorHandler: ErrorHandlerService
+  ) {}
 
   ngOnInit(): void {
 
     this.initForm();
+
+    this.loadCities();
+
+    this.loadStates();
   }
 
-  get name(): any {
+  get f(): { [key: string]: AbstractControl } {
 
-    return this.form.get('name');
-  }
-
-  get location(): any {
-
-    return this.form.get('location');
-  }
-
-  get number(): any {
-
-    return this.form.get('number');
-  }
-
-  get complement(): any {
-
-    return this.form.get('complement');
-  }
-
-  get district(): any {
-
-    return this.form.get('district');
-  }
-
-  get zipcode(): any {
-
-    return this.form.get('zipcode');
-  }
-
-  get city(): any {
-
-    return this.form.get('city');
-  }
-
-  get state(): any {
-
-    return this.form.get('state');
+    return this.form.controls;
   }
 
   onSubmit() {
 
-    console.warn(this.form.value);
-
-    this.reset();
+    this.save();
   }
 
   fullUpdate() {
@@ -83,22 +57,66 @@ export class PersonCreateComponent implements OnInit {
 
   reset() {
 
-    this.form.reset({
-      name: ''
-    });
+    this.form.reset();
+  }
+
+  save() {
+
+    const person = this.form.value;
+
+    this.personService.save(person).then((_response: Person) => {
+
+      this.messageService.add({ severity:'success', summary: 'Sucesso', detail: 'Pessoa salva na base de dados!', icon: 'pi-check-circle' });
+
+      this.reset();
+
+    }).catch(error => this.errorHandler.handle(error));
+  }
+
+  loadCities() {
+
+    return this.cityService.findByStateId(26).then(cities => {
+
+      this.cities = cities.map((s: { name: string; id: number; }) => ({ label: s.name, value: s.id }));
+
+    }).catch(error => this.errorHandler.handle(error));
+  }
+
+  loadStates() {
+
+    return this.stateService.findAll().then(states => {
+
+      this.states = states.map((s: { name: string; id: number; }) => ({ label: s.name, value: s.id }));
+
+    }).catch(error => this.errorHandler.handle(error));
   }
 
   private initForm() {
 
     this.form = this.formBuilder.group({
-      name: [ this.person.name, [ Validators.required, Validators.minLength(5) ] ],
-      location: [ this.person.location, Validators.required ],
-      number: [ this.person.number, Validators.required ],
-      complement: [ this.person.complement, null ],
-      district: [ this.person.district, [ Validators.required ] ],
-      zipcode: [ this.person.zipcode, [ Validators.required ] ],
-      city: [ this.person.city, [ Validators.required ] ],
-      state: [ this.person.state, Validators.required ]
+
+      id: [],
+      name: [ null, [ Validators.required, Validators.minLength(5) ] ],
+
+      address: this.formBuilder.group({
+        location: [ null, Validators.required ],
+        number: [ null, Validators.required ],
+        complement: [ null, null ],
+        district: [ null, [ Validators.required ] ],
+        zipcode: [ null, [ Validators.required ] ],
+        city: this.formBuilder.group({
+          id: [ null, [ Validators.required ] ],
+          state: this.formBuilder.group({
+            id: [ null, [ Validators.required ] ]
+          })
+        })
+      }),
+
+      contacts: this.formBuilder.array([
+        // this.formBuilder.control('')
+      ]),
+
+      status: [ true ]
     });
   }
 }

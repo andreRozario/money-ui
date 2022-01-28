@@ -10,7 +10,7 @@
 
         <div class="col-12 mb-3">
 
-          <p-selectButton formControlName="type" [options]="types" optionLabel="label" optionValue="value" #type></p-selectButton>
+          <p-selectButton formControlName="type" [options]="types" optionLabel="label" optionValue="value"></p-selectButton>
 
         </div>
 
@@ -36,7 +36,7 @@
           <div class="field">
             <span class="p-float-label">
               <p-calendar inputId="paymentDate" class="p-inputtext-lg" formControlName="paymentDate" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
-              <label for="paymentDate">{{ type.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
+              <label for="paymentDate">{{ f['type'].value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
             </span>
           </div>
 
@@ -79,33 +79,33 @@
 
       <div class="formgrid grid">
 
-        <div class="col-12 md:col-4 sm:col-6 mt-4">
+        <div class="col-12 md:col-4 sm:col-6 mt-4" formGroupName="category">
 
           <div class="field p-inputgroup">
             <span class="p-inputgroup-addon"><i class="pi pi-tag"></i></span>
             <span class="p-float-label">
-              <p-dropdown inputId="category" [options]="categories" aria-describedby="category-help" formControlName="category" optionLabel="label" optionValue="value" placeholder=" " [filter]="true"
+              <p-dropdown inputId="category" [options]="categories" aria-describedby="category-help" formControlName="id" optionLabel="label" optionValue="value" placeholder=" " [filter]="true"
                 emptyFilterMessage="Nenhum Resultado" styleClass="p-inputtext p-inputtext-lg h-3rem border-noround--left"></p-dropdown>
               <label for="category">Categoria</label>
             </span>
           </div>
 
-          <app-message id="category-help" [control]="f['category']" state="touched" error="required" text="Campo categoria é obrigatório"></app-message>
+          <app-message id="category-help" [control]="f['category'].get('id')" state="touched" error="required" text="Campo categoria é obrigatório"></app-message>
 
         </div>
 
-        <div class="col-12 md:col-8 sm:col-6 mt-4">
+        <div class="col-12 md:col-8 sm:col-6 mt-4" formGroupName="person">
 
           <div class="field p-inputgroup">
             <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
             <span class="p-float-label">
-              <p-dropdown inputId="person" [options]="persons" aria-describedby="person-help" formControlName="person" optionLabel="label" optionValue="value" placeholder=" " [filter]="true"
+              <p-dropdown inputId="person" [options]="persons" aria-describedby="person-help" formControlName="id" optionLabel="label" optionValue="value" placeholder=" " [filter]="true"
                 emptyFilterMessage="Nenhum Resultado Encontrado" styleClass="p-inputtext p-inputtext-lg h-3rem border-noround--left"></p-dropdown>
               <label for="person">Pessoa</label>
             </span>
           </div>
 
-          <app-message id="person-help" [control]="f['person']" state="touched" error="required" text="Campo pessoa é obrigatório"></app-message>
+          <app-message id="person-help" [control]="f['person'].get('id')" state="touched" error="required" text="Campo pessoa é obrigatório"></app-message>
 
         </div>
 

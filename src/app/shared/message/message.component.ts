@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 
 @Component({
@@ -14,7 +14,7 @@ import { AbstractControl, FormControl } from '@angular/forms';
 export class MessageComponent {
 
   @Input() id: string = '';
-  @Input() control!: AbstractControl;
+  @Input() control!: AbstractControl | FormControl | null;
   @Input() state: string = '';
   @Input() error: string = '';
   @Input() text: string = '';
@@ -23,11 +23,11 @@ export class MessageComponent {
 
     if (this.state === 'dirty')
 
-      return this.control.hasError(this.error) && this.control.dirty;
+      return this.control!.hasError(this.error) && this.control!.dirty;
 
     else if (this.state === 'touched')
 
-      return this.control.hasError(this.error) && this.control.touched;
+      return this.control!.hasError(this.error) && this.control!.touched;
 
     return false;
   }

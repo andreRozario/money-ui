@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 
 import { firstValueFrom } from 'rxjs';
 
+import { Person } from '../_model/person';
+
 export class PersonFilter {
 
    name?: string;
@@ -56,6 +58,18 @@ export class PersonService {
     const headers = new HttpHeaders().append('Authorization', 'Basic YWRtaW5AbW9uZXkuY29tOmFkbWlu');
 
     return firstValueFrom(this.http.get(`${this.url}`, { headers })).then((response: any) => response['content']);
+  }
+
+  save(person: Person): Promise<Person> {
+
+    const headers = new HttpHeaders()
+      .append('Authorization', 'Basic YWRtaW5AbW9uZXkuY29tOmFkbWlu')
+      .append('Content-Type', 'application/json');
+
+    return firstValueFrom(this.http.post<Person>(this.url, person, { headers })).then((response: Person) => {
+
+      return response;
+    });
   }
 
   statusUpdate(id: number, status: boolean): Promise<void> {

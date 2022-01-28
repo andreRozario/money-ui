@@ -1,24 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { MessageService } from 'primeng/api';
 
 import { CategoryService } from 'src/app/category/category.service';
-import { ErrorHandlerService } from 'src/app/core/error-handler.service';
-import { PersonService } from 'src/app/person/person.service';
-import { Entry } from 'src/app/_model/entry';
 import { EntryService } from '../entry.service';
+import { PersonService } from 'src/app/person/person.service';
 
-// class Entry {
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
-//   type: any = 'RECEITA';
-//   dueDate: any = '';
-//   paymentDate: any = '';
-//   description: string = '';
-//   value: any = undefined;
-//   category: any = undefined;
-//   person: any = undefined;
-//   observation: string = '';
-// }
+import { Entry } from 'src/app/_model/entry';
 
 @Component({
   selector: 'app-entry-create',
@@ -27,7 +18,7 @@ import { EntryService } from '../entry.service';
 })
 export class EntryCreateComponent implements OnInit {
 
-  entry: Entry = new Entry();
+  form: FormGroup = new FormGroup({});
 
   types: any[] = [
     { label: 'Receita', value: 'RECEITA' },
@@ -37,8 +28,6 @@ export class EntryCreateComponent implements OnInit {
   categories: any[] = [];
 
   persons: any[] = [];
-
-  form: FormGroup = new FormGroup({}); //  as { [key in keyof Entry]: FormControl }
 
   constructor(
     private formBuilder: FormBuilder,
@@ -63,62 +52,7 @@ export class EntryCreateComponent implements OnInit {
     return this.form.controls;
   }
 
-  // readonly fcName: { [key in keyof Entry]: key } = {
-
-  //   id: 'id',
-  //   type: 'type',
-  //   dueDate: 'dueDate',
-  //   paymentDate: 'paymentDate',
-  //   description: 'description',
-  //   value: 'value',
-  //   category: 'category',
-  //   person: 'person',
-  //   observation: 'observation'
-  // }
-
-  // get type(): any {
-
-  //   return this.form.get('type');
-  // }
-
-  // get dueDate(): any {
-
-  //   return this.form.get('dueDate');
-  // }
-
-  // get paymentDate(): any {
-
-  //   return this.form.get('paymentDate');
-  // }
-
-  // get description(): any {
-
-  //   return this.form.get('description');
-  // }
-
-  // get value(): any {
-
-  //   return this.form.get('value');
-  // }
-
-  // get category(): any {
-
-  //   return this.form.get('category');
-  // }
-
-  // get person(): any {
-
-  //   return this.form.get('person');
-  // }
-
-  // get observation(): any {
-
-  //   return this.form.get('observation');
-  // }
-
   onSubmit() {
-
-    console.warn(this.form.value);
 
     this.save();
   }
@@ -128,22 +62,18 @@ export class EntryCreateComponent implements OnInit {
 
   reset() {
 
-    this.form.reset();
+    this.form.reset({ type: 'RECEITA' });
   }
 
   save() {
 
-    this.modelBinding();
+    const entry = this.form.value;
 
-    console.log(this.entry);
-
-    this.entryService.save(this.entry).then((response: Entry) => {
+    this.entryService.save(entry).then((_response: Entry) => {
 
       this.messageService.add({ severity:'success', summary: 'Sucesso', detail: 'Lançamento salvo na base de dados!', icon: 'pi-check-circle' });
 
       this.reset();
-
-      this.entry = new Entry();
 
     }).catch(error => this.errorHandler.handle(error));
   }
@@ -166,23 +96,22 @@ export class EntryCreateComponent implements OnInit {
     }).catch(error => this.errorHandler.handle(error));
   }
 
-  private modelBinding() {
-
-    this.entry = this.form.value;
-  }
-
   private initForm() {
 
     this.form = this.formBuilder.group({
-      type: [ this.entry.type, null ],
-      dueDate: [ this.entry.dueDate, Validators.required ],
-      paymentDate: [ this.entry.paymentDate, null ],
-      description: [ this.entry.description, [ Validators.required, Validators.minLength(5) ] ],
-      value: [ this.entry.value, Validators.required ],
-      category: [ this.entry.category, Validators.required ],
-      person: [ this.entry.person, Validators.required ],
-      observation: [ this.entry.observation, null ]
+      id: [],
+      type: [ 'RECEITA', null ],
+      dueDate: [ null, Validators.required ],
+      paymentDate: [],
+      description: [ null, [ Validators.required, Validators.minLength(5) ] ],
+      value: [ null, Validators.required ],
+      category: this.formBuilder.group({
+        id: [ null, Validators.required ]
+      }),
+      person: this.formBuilder.group({
+        id: [ null, Validators.required ]
+      }),
+      observation: []
     });
   }
-
 }
