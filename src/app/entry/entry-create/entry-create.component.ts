@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 import { MessageService } from 'primeng/api';
 
@@ -35,16 +38,42 @@ export class EntryCreateComponent implements OnInit {
     private entryService: EntryService,
     private personService: PersonService,
     private messageService: MessageService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private title: Title
   ) {}
 
   ngOnInit(): void {
 
+    this.title.setTitle('Novo Lançamento');
+
+    const id = this.route.snapshot.params['id'];
+
+    if (id)
+
+      this.loadEntry(id);
+
     this.initForm();
 
     this.loadCategories();
-
     this.loadPersons();
+  }
+
+  loadEntry(id: number) {
+
+    this.entryService.findById(id).then((entry: Entry) => {
+
+      this.form.patchValue(entry);
+
+      this.titleUpdate();
+
+    }).catch(error => this.errorHandler.handle(error));
+  }
+
+  get isEditing() {
+
+    return Boolean(this.form.get('id')!.value);
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -54,10 +83,13 @@ export class EntryCreateComponent implements OnInit {
 
   onSubmit() {
 
-    this.save();
-  }
+    if (this.isEditing)
 
-  fullUpdate() {
+      this.update();
+
+    else
+
+      this.save();
   }
 
   reset() {
@@ -69,11 +101,26 @@ export class EntryCreateComponent implements OnInit {
 
     const entry = this.form.value;
 
-    this.entryService.save(entry).then((_response: Entry) => {
+    this.entryService.save(entry).then((entry: Entry) => {
 
       this.messageService.add({ severity:'success', summary: 'Sucesso', detail: 'Lançamento salvo na base de dados!', icon: 'pi-check-circle' });
 
-      this.reset();
+      this.router.navigate(['/entries/edit', entry.id]);
+
+    }).catch(error => this.errorHandler.handle(error));
+  }
+
+  update() {
+
+    const entry = this.form.value;
+
+    this.entryService.update(entry).then((entry: Entry) => {
+
+      this.form.patchValue(entry);
+
+      this.titleUpdate();
+
+      this.messageService.add({ severity:'success', summary: 'Sucesso', detail: 'Lançamento alterado na base de dados!', icon: 'pi-check-circle' });
 
     }).catch(error => this.errorHandler.handle(error));
   }
@@ -94,6 +141,18 @@ export class EntryCreateComponent implements OnInit {
       this.persons = persons.map((p: { name: string; id: number; }) => ({ label: p.name, value: p.id }));
 
     }).catch(error => this.errorHandler.handle(error));
+  }
+
+  new() {
+
+    this.reset();
+
+    this.router.navigate(['entries/create']);
+  }
+
+  private titleUpdate() {
+
+    this.title.setTitle(`Editar Lançamento: ${ this.form.get('description')?.value }`);
   }
 
   private initForm() {

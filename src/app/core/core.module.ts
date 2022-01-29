@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
+import { RouterModule } from '@angular/router';
 import { SharedModule } from 'primeng/api';
 import { SidebarModule } from 'primeng/sidebar';
 import { ToastModule } from 'primeng/toast';
@@ -19,13 +20,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
 
-import { ErrorHandlerService } from './error-handler.service';
-import { CategoryService } from '../category/category.service';
-import { EntryService } from '../entry/entry.service';
-import { PersonService } from '../person/person.service';
-
 import localePt from '@angular/common/locales/pt';
-import { StateService } from '../state/state.service';
+import { PageNotFoundComponent } from './page-not-found.component';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -41,6 +37,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ConfirmDialogModule,
     MenuModule,
     MenubarModule,
+    RouterModule,
     SharedModule,
     SidebarModule,
     ToastModule,
@@ -55,7 +52,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     }),
   ],
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    PageNotFoundComponent
   ],
   exports: [
     ConfirmDialogModule,
@@ -68,12 +66,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     DatePipe,
     MessageService,
     TranslateService,
-
-    ErrorHandlerService,
-    CategoryService,
-    EntryService,
-    PersonService,
-    StateService,
 
     { provide: LOCALE_ID, useValue: 'pt-BR' }
   ]

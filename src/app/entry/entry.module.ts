@@ -17,6 +17,8 @@ import { TooltipModule } from 'primeng/tooltip';
 
 import { SharedModule } from '../shared/shared.module';
 
+import { EntryRoutingModule } from './entry-routing.module';
+
 import { EntryCreateComponent } from './entry-create/entry-create.component';
 import { EntryFilterComponent } from './entry-filter/entry-filter.component';
 import { EntryDatatableComponent } from './entry-datatable/entry-datatable.component';
@@ -39,16 +41,15 @@ import { EntryDatatableComponent } from './entry-datatable/entry-datatable.compo
     TagModule,
     TooltipModule,
 
-    SharedModule
+    SharedModule,
+
+    EntryRoutingModule
   ],
   declarations: [
     EntryCreateComponent,
     EntryFilterComponent,
     EntryDatatableComponent
   ],
-  exports: [
-    EntryCreateComponent,
-    EntryFilterComponent,
-  ]
+  exports: []
 })
 export class EntryModule { }

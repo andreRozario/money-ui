@@ -1,0 +1,60 @@
+<div class="container__login">
+
+  <h1>Login <i class="pi pi-user text-500" style="font-size: 2rem;"></i></h1>
+
+  <p-card [style]="{'background-color': '#252f3d'}">
+
+    <form autocomplete="off" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <div class="formgrid grid">
+
+        <div class="col-12 mt-4">
+
+          <div class="field p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-envelope"></i></span>
+            <span class="p-float-label">
+              <input id="username" class="p-inputtext-lg" type="text" aria-describedby="username-help" formControlName="username" pInputText>
+              <label for="username">Email</label>
+            </span>
+          </div>
+
+          <app-message id="username-help" [control]="f['username']" state="dirty" error="required" text="Campo email é obrigatório"></app-message>
+          <app-message id="username-help" [control]="f['username']" state="dirty" error="email" text="Campo email deve possuir um formato válido"></app-message>
+
+        </div>
+
+      </div>
+
+      <div class="formgrid grid">
+
+        <div class="col-12 mt-4">
+
+          <div class="field p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
+            <span class="p-float-label">
+              <input id="password" class="p-inputtext-lg" type="password" aria-describedby="password-help" formControlName="password" pInputText>
+              <label for="password">Senha</label>
+            </span>
+          </div>
+
+          <app-message id="password-help" [control]="f['password']" state="dirty" error="required" text="Campo senha é obrigatório"></app-message>
+
+        </div>
+
+      </div>
+
+      <div class="formgrid grid">
+
+        <div class="col-12 mt-4">
+
+          <button class="mr-2" type="submit" label="Salvar" pButton [disabled]="!form.valid"></button>
+
+        </div>
+
+      </div>
+
+    </form>
+
+  </p-card>
+
+</div>

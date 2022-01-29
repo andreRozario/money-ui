@@ -60,16 +60,32 @@ export class PersonService {
     return firstValueFrom(this.http.get(`${this.url}`, { headers })).then((response: any) => response['content']);
   }
 
+  findById(id: number): Promise<Person> {
+
+    const headers = new HttpHeaders().append('Authorization', 'Basic YWRtaW5AbW9uZXkuY29tOmFkbWlu');
+
+    return firstValueFrom(this.http.get<Person>(`${this.url}/${id}`, { headers })).then((response: Person) => {
+
+      return response
+    });
+  }
+
   save(person: Person): Promise<Person> {
 
     const headers = new HttpHeaders()
       .append('Authorization', 'Basic YWRtaW5AbW9uZXkuY29tOmFkbWlu')
       .append('Content-Type', 'application/json');
 
-    return firstValueFrom(this.http.post<Person>(this.url, person, { headers })).then((response: Person) => {
+    return firstValueFrom(this.http.post<Person>(this.url, person, { headers })).then((response: Person) => response);
+  }
 
-      return response;
-    });
+  update(person: Person): Promise<Person> {
+
+    const headers = new HttpHeaders()
+      .append('Authorization', 'Basic YWRtaW5AbW9uZXkuY29tOmFkbWlu')
+      .append('Content-Type', 'application/json');
+
+    return firstValueFrom(this.http.put<Person>(`${this.url}/${person.id}`, person, { headers })).then((response: Person) => response);
   }
 
   statusUpdate(id: number, status: boolean): Promise<void> {

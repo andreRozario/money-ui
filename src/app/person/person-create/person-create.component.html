@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h1>Nova Pessoa</h1>
+  <h1>{{ isEditing ? 'Editar' : 'Nova' }}  Pessoa</h1>
 
   <p-card [style]="{'background-color': '#252f3d'}">
 
@@ -144,8 +144,8 @@
         <div class="col-12 mt-4">
 
           <button class="mr-2" type="submit" label="Salvar" pButton [disabled]="!form.valid"></button>
-          <button class="p-button-secondary mr-2" type="button" label="Novo" pButton></button>
-          <button class="p-button-info p-button-text" type="button" label="Voltar para pesquisa" pButton></button>
+          <button class="p-button-secondary mr-2" type="button" label="Novo" pButton (click)="new()"></button>
+          <button class="p-button-info p-button-text" type="button" label="Voltar para pesquisa" pButton routerLink="/persons"></button>
 
         </div>
 

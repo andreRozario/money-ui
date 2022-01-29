@@ -69,16 +69,32 @@ export class EntryService {
     });
   }
 
+  findById(id: number): Promise<Entry> {
+
+    const headers = new HttpHeaders().append('Authorization', 'Basic YWRtaW5AbW9uZXkuY29tOmFkbWlu');
+
+    return firstValueFrom(this.http.get<Entry>(`${this.url}/${id}`, { headers })).then((response: Entry) => {
+
+      return response
+    });
+  }
+
   save(entry: Entry): Promise<Entry> {
 
     const headers = new HttpHeaders()
       .append('Authorization', 'Basic YWRtaW5AbW9uZXkuY29tOmFkbWlu')
       .append('Content-Type', 'application/json');
 
-    return firstValueFrom(this.http.post<Entry>(this.url, Entry.dateFormat(entry, this.datePipe), { headers })).then((response: Entry) => {
+    return firstValueFrom(this.http.post<Entry>(this.url, Entry.dateFormat(entry, this.datePipe), { headers })).then((response: Entry) => response);
+  }
 
-      return response;
-    });
+  update(entry: Entry): Promise<Entry> {
+
+    const headers = new HttpHeaders()
+      .append('Authorization', 'Basic YWRtaW5AbW9uZXkuY29tOmFkbWlu')
+      .append('Content-Type', 'application/json');
+
+    return firstValueFrom(this.http.put<Entry>(`${this.url}/${entry.id}`, Entry.dateFormat(entry, this.datePipe), { headers })).then((response: Entry) => response);
   }
 
   deleteById(id: number) {
@@ -91,4 +107,4 @@ export class EntryService {
 
 // cd C:\Users\HellBoy\Documents\Development\Workspace-STS-4-4.13.0\money-api\target
 
-// java -jar money-api-1.0.0-SNAPSHOT.jar --spring.datasource.username=root --spring.datasource.password --moneyapi.allowed-web-application-origin=http://localhost:4200 --spring.profiles.active=basic-security
+// java -jar money-api-1.0.0-SNAPSHOT.jar --spring.datasource.username=root --spring.datasource.password --moneyapi.allowed-web-application-origin=http://localhost:4200 --spring.profiles.active=oauth-security

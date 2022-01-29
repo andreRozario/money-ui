@@ -42,8 +42,8 @@
 
       </td>
       <td class="col-actions">
-        <a icon="pi pi-pencil" pButton pTooltip="Editar" tooltipPosition="top"></a>
-        <button class="p-button-danger" icon="pi pi-trash" pButton pTooltip="Deletar" tooltipPosition="top" (click)="DeleteByIdEmitter({ person, grid })"></button>
+        <button icon="pi pi-pencil mx-1" pButton [routerLink]="['/persons/edit', person.id]" pTooltip="Editar" tooltipPosition="top"></button>
+        <button class="p-button-danger mx-1" icon="pi pi-trash" pButton pTooltip="Deletar" tooltipPosition="top" (click)="DeleteByIdEmitter({ person, grid })"></button>
       </td>
     </tr>
   </ng-template>

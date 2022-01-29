@@ -21,6 +21,11 @@ h1 {
   }
 }
 
+.container__login {
+  max-width: 530px;
+  margin: 0 auto;
+}
+
 .col-date-header {
   width: 135px;
   text-align: center!important;
@@ -123,4 +128,10 @@ p-inputnumber.ng-touched.ng-invalid > .p-inputnumber > .p-inputtext, p-dropdown.
   border: solid #e60017;
   border-width: 0 0 0 6px;
   color: #73000c;
+}
+
+/* MENU ITEM */
+
+a.p-menuitem-link.p-menuitem-link-active {
+  background: #20262e;
 }

@@ -14,6 +14,8 @@ import { TooltipModule } from 'primeng/tooltip';
 
 import { SharedModule } from '../shared/shared.module';
 
+import { PersonRoutingModule } from './person-routing.module';
+
 import { PersonCreateComponent } from './person-create/person-create.component';
 import { PersonFilterComponent } from './person-filter/person-filter.component';
 import { PersonDatatableComponent } from './person-datatable/person-datatable.component';
@@ -33,16 +35,15 @@ import { PersonDatatableComponent } from './person-datatable/person-datatable.co
     TagModule,
     TooltipModule,
 
-    SharedModule
+    SharedModule,
+
+    PersonRoutingModule
   ],
   declarations: [
     PersonCreateComponent,
     PersonFilterComponent,
     PersonDatatableComponent
   ],
-  exports: [
-    PersonCreateComponent,
-    PersonFilterComponent
-  ]
+  exports: []
 })
 export class PersonModule { }

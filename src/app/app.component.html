@@ -1,9 +1,6 @@
-<app-navbar></app-navbar>
+<app-navbar *ngIf="showNavbar()"></app-navbar>
 
-<app-entry-filter></app-entry-filter>
-<!-- <app-entry-create></app-entry-create> -->
-<!-- <app-person-filter></app-person-filter> -->
-<!-- <app-person-create></app-person-create> -->
+<router-outlet></router-outlet>
 
 <p-confirmDialog header="Confirmação" icon="pi pi-question-circle" #confirmation>
   <p-footer>

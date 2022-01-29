@@ -5,12 +5,12 @@ import { Person } from "./person";
 
 export class Entry {
 
-  id?: number;
-  description?: string;
-  dueDate?: Date;
-  paymentDate?: Date;
-  value?: number;
-  observation?: string;
+  id!: number;
+  description!: string;
+  dueDate!: Date;
+  paymentDate!: Date;
+  value!: number;
+  observation!: string;
   type = 'RECEITA';
   category = new Category();
   person = new Person();
@@ -19,8 +19,13 @@ export class Entry {
 
     return {
       ...entry,
-      dueDate: datePipe.transform(entry.dueDate, 'dd/MM/yyyy'),
-      paymentDate: datePipe.transform(entry.paymentDate, 'dd/MM/yyyy')
+      dueDate: Entry.dateValidation(entry.dueDate, datePipe),
+      paymentDate: Entry.dateValidation(entry.paymentDate, datePipe)
     };
+  }
+
+  static dateValidation(date: any, datePipe: DatePipe): Date | string {
+
+    return (date instanceof Date) ? datePipe.transform(date, 'dd/MM/yyyy') : date;
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
 
@@ -22,11 +23,13 @@ export class PersonFilterComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private errorHandler: ErrorHandlerService,
     private messageService: MessageService,
-    private service: PersonService
+    private service: PersonService,
+    private title: Title
   ) { }
 
   ngOnInit(): void {
 
+    this.title.setTitle('Pessoas');
   }
 
   findByNameContaining(page: number = 0): Promise<any> {

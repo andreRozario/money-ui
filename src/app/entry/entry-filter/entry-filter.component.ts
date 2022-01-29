@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
 
@@ -22,11 +23,13 @@ export class EntryFilterComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private errorHandler: ErrorHandlerService,
     private messageService: MessageService,
-    private service: EntryService
+    private service: EntryService,
+    private title: Title
   ) { }
 
   ngOnInit(): void {
 
+    this.title.setTitle('Lançamentos');
   }
 
   summarize(page: number = 0): Promise<any> {

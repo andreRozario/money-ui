@@ -20,41 +20,33 @@ export class NavbarComponent implements OnInit {
     this.items = [{
       label: 'Lançamentos',
       items: [{
-          label: 'Listar',
-          icon: 'pi pi-align-left',
-          command: () => {
-              this.update();
-          }
+        label: 'Listar',
+        icon: 'pi pi-align-left',
+        routerLink: ['/entries'],
+        routerLinkActiveOptions: { exact: true }
       },
       {
-          label: 'Adicionar',
-          icon: 'pi pi-plus',
-          command: () => {
-              this.delete();
-          }
+        label: 'Adicionar',
+        icon: 'pi pi-plus',
+        routerLink: ['/entries/create'],
+        routerLinkActiveOptions: { exact: true }
       }
       ]},
       {
-          label: 'Pessoas',
-          items: [{
-              label: 'Listar',
-              icon: 'pi pi-align-left',
-              url: 'http://angular.io'
-          },
-          {
-              label: 'Adicionar',
-              icon: 'pi pi-plus',
-              url: 'http://angular.io'
-          }
+        label: 'Pessoas',
+        items: [{
+          label: 'Listar',
+          icon: 'pi pi-align-left',
+          routerLink: ['/persons'],
+          routerLinkActiveOptions: { exact: true }
+        },
+        {
+          label: 'Adicionar',
+          icon: 'pi pi-plus',
+          routerLink: ['/persons/create'],
+          routerLinkActiveOptions: { exact: true }
+        }
       ]}
     ];
-  }
-
-  update() {
-
-  }
-
-  delete() {
-
   }
 }

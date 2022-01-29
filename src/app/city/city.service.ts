@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 
 import { firstValueFrom } from 'rxjs';
 
+import { City } from '../_model/city';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,6 +24,6 @@ export class CityService {
 
       params = params.set('state', state);
 
-    return firstValueFrom(this.http.get(`${this.url}`, { headers, params })).then((response: any) => response);
+    return firstValueFrom(this.http.get<City>(`${this.url}`, { headers, params })).then((response: City) => response);
   }
 }

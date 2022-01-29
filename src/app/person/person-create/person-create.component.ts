@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 import { MessageService } from 'primeng/api';
 
@@ -30,16 +33,43 @@ export class PersonCreateComponent implements OnInit {
     private personService: PersonService,
     private stateService: StateService,
     private messageService: MessageService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private title: Title
   ) {}
 
   ngOnInit(): void {
+
+    this.title.setTitle('Nova Pessoa');
+
+    const id = this.route.snapshot.params['id'];
+
+    if (id)
+
+      this.loadPerson(id);
 
     this.initForm();
 
     this.loadCities();
 
     this.loadStates();
+  }
+
+  loadPerson(id: number) {
+
+    this.personService.findById(id).then((person: Person) => {
+
+      this.form.patchValue(person);
+
+      this.titleUpdate();
+
+    }).catch(error => this.errorHandler.handle(error));
+  }
+
+  get isEditing() {
+
+    return Boolean(this.form.get('id')!.value);
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -49,10 +79,13 @@ export class PersonCreateComponent implements OnInit {
 
   onSubmit() {
 
-    this.save();
-  }
+    if (this.isEditing)
 
-  fullUpdate() {
+      this.update();
+
+    else
+
+      this.save();
   }
 
   reset() {
@@ -73,6 +106,21 @@ export class PersonCreateComponent implements OnInit {
     }).catch(error => this.errorHandler.handle(error));
   }
 
+  update() {
+
+    const person = this.form.value;
+
+    this.personService.update(person).then((person: Person) => {
+
+      this.form.patchValue(person);
+
+      this.titleUpdate();
+
+      this.messageService.add({ severity:'success', summary: 'Sucesso', detail: 'Pessoa alterada na base de dados!', icon: 'pi-check-circle' });
+
+    }).catch(error => this.errorHandler.handle(error));
+  }
+
   loadCities() {
 
     return this.cityService.findByStateId(26).then(cities => {
@@ -89,6 +137,18 @@ export class PersonCreateComponent implements OnInit {
       this.states = states.map((s: { name: string; id: number; }) => ({ label: s.name, value: s.id }));
 
     }).catch(error => this.errorHandler.handle(error));
+  }
+
+  new() {
+
+    this.reset();
+
+    this.router.navigate(['persons/create']);
+  }
+
+  private titleUpdate() {
+
+    this.title.setTitle(`Editar Pessoa: ${ this.form.get('name')?.value }`);
   }
 
   private initForm() {
