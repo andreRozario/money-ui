@@ -17,11 +17,12 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { NavbarComponent } from './navbar/navbar.component';
+import { PageNotFoundComponent } from './page-not-found.component';
+import { ForbiddenAccessComponent } from './forbidden-access.component';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 import localePt from '@angular/common/locales/pt';
-import { PageNotFoundComponent } from './page-not-found.component';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -53,7 +54,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   ],
   declarations: [
     NavbarComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ForbiddenAccessComponent
   ],
   exports: [
     ConfirmDialogModule,

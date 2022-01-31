@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { Title } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
 
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,10 @@ export class LoginComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
 
+  @ViewChild('password') password: any;
+
   constructor(
+    public auth: AuthService,
     private formBuilder: FormBuilder,
     private messageService: MessageService,
     private errorHandler: ErrorHandlerService,
@@ -45,13 +49,23 @@ export class LoginComponent implements OnInit {
 
   reset() {
 
-    this.form.reset();
+    this.f['password'].setValue('');
+
+    this.password.nativeElement.focus();
   }
 
   login(username: string, password: string) {
 
-    console.log('Username: ', username, ' Password: ', password);
+    this.auth.login(username, password).then(() => {
 
+      this.router.navigate(['/entries']);
+
+    }).catch(error => {
+
+      this.reset();
+
+      this.errorHandler.handle(error);
+    });
   }
 
   private initForm() {

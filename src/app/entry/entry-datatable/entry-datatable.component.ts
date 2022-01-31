@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 
 import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { AuthService } from 'src/app/security/auth.service';
 
 @Component({
   selector: 'app-entry-datatable',
@@ -22,6 +23,10 @@ export class EntryDatatableComponent {
 
   @ViewChild('table') grid!: Table;
 
+  constructor(private auth: AuthService) {
+
+  }
+
   LazyLoadEmitter(event: LazyLoadEvent) {
 
     const page: number = (event.first! / event.rows!);
@@ -32,5 +37,9 @@ export class EntryDatatableComponent {
   DeleteByIdEmitter(object: any) { // object = { entry, grid }
 
     this.onDelete.emit(object);
+  }
+
+  hasNoPermission(permission: string) {
+    return !this.auth.hasAuthority(permission);
   }
 }

@@ -1,5 +1,7 @@
 <div class="container__login">
 
+  {{ auth.payload | json }}
+
   <h1>Login <i class="pi pi-user text-500" style="font-size: 2rem;"></i></h1>
 
   <p-card [style]="{'background-color': '#252f3d'}">
@@ -32,7 +34,7 @@
           <div class="field p-inputgroup">
             <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
             <span class="p-float-label">
-              <input id="password" class="p-inputtext-lg" type="password" aria-describedby="password-help" formControlName="password" pInputText>
+              <input id="password" class="p-inputtext-lg" type="password" aria-describedby="password-help" formControlName="password" pInputText #password>
               <label for="password">Senha</label>
             </span>
           </div>

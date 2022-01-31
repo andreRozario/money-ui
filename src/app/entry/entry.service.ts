@@ -33,8 +33,6 @@ export class EntryService {
 
   summarize(filter: EntryFilter): Promise<any> {
 
-    const headers = new HttpHeaders().append('Authorization', 'Basic YWRtaW5AbW9uZXkuY29tOmFkbWlu');
-
     let params = new HttpParams();
 
     params = params.set('page', filter.page);
@@ -52,7 +50,7 @@ export class EntryService {
 
       params = params.set('dueDateTo', this.datePipe.transform(filter.dueDateTo, 'yyyy-MM-dd')!);
 
-    return firstValueFrom(this.http.get(`${this.url}?summarize`, { headers, params })).then((response: any) => {
+    return firstValueFrom(this.http.get(`${this.url}?summarize`, { params })).then((response: any) => {
 
       const content = response['content'];
 
@@ -71,9 +69,7 @@ export class EntryService {
 
   findById(id: number): Promise<Entry> {
 
-    const headers = new HttpHeaders().append('Authorization', 'Basic YWRtaW5AbW9uZXkuY29tOmFkbWlu');
-
-    return firstValueFrom(this.http.get<Entry>(`${this.url}/${id}`, { headers })).then((response: Entry) => {
+    return firstValueFrom(this.http.get<Entry>(`${this.url}/${id}`)).then((response: Entry) => {
 
       return response
     });
@@ -81,27 +77,17 @@ export class EntryService {
 
   save(entry: Entry): Promise<Entry> {
 
-    const headers = new HttpHeaders()
-      .append('Authorization', 'Basic YWRtaW5AbW9uZXkuY29tOmFkbWlu')
-      .append('Content-Type', 'application/json');
-
-    return firstValueFrom(this.http.post<Entry>(this.url, Entry.dateFormat(entry, this.datePipe), { headers })).then((response: Entry) => response);
+    return firstValueFrom(this.http.post<Entry>(this.url, Entry.dateFormat(entry, this.datePipe))).then((response: Entry) => response);
   }
 
   update(entry: Entry): Promise<Entry> {
 
-    const headers = new HttpHeaders()
-      .append('Authorization', 'Basic YWRtaW5AbW9uZXkuY29tOmFkbWlu')
-      .append('Content-Type', 'application/json');
-
-    return firstValueFrom(this.http.put<Entry>(`${this.url}/${entry.id}`, Entry.dateFormat(entry, this.datePipe), { headers })).then((response: Entry) => response);
+    return firstValueFrom(this.http.put<Entry>(`${this.url}/${entry.id}`, Entry.dateFormat(entry, this.datePipe))).then((response: Entry) => response);
   }
 
   deleteById(id: number) {
 
-    const headers = new HttpHeaders().append('Authorization', 'Basic YWRtaW5AbW9uZXkuY29tOmFkbWlu');
-
-    return firstValueFrom(this.http.delete(`${this.url}/${id}`, { headers })).then(() => null);
+    return firstValueFrom(this.http.delete(`${this.url}/${id}`)).then(() => null);
   }
 }
 

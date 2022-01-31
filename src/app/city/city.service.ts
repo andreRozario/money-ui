@@ -16,14 +16,12 @@ export class CityService {
 
   findByStateId(state: number): Promise<any> {
 
-    const headers = new HttpHeaders().append('Authorization', 'Basic YWRtaW5AbW9uZXkuY29tOmFkbWlu');
-
     let params = new HttpParams();
 
     if (state)
 
       params = params.set('state', state);
 
-    return firstValueFrom(this.http.get<City>(`${this.url}`, { headers, params })).then((response: City) => response);
+    return firstValueFrom(this.http.get(`${this.url}`, { params }));
   }
 }
