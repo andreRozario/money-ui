@@ -1,11 +1,11 @@
 <p-menubar>
 
   <ng-template pTemplate="start">
-    <button class="p-button-raised p-button-secondary p-button-text pl-4 pr-4" type="button" pButton pRipple (click)="display = true" icon="pi pi-bars"></button>
+    <button class="p-button-raised p-button-secondary p-button-text pl-4 pr-4" type="button" pButton pRipple icon="pi pi-bars" (click)="display = true"></button>
   </ng-template>
 
   <ng-template pTemplate="end">
-    <button class="p-button-rounded p-button-warning p-button-text" type="button" pButton icon="pi pi-power-off" pTooltip="Logout" tooltipPosition="left"></button>
+    <button class="p-button-rounded p-button-warning p-button-text" type="button" pButton icon="pi pi-power-off" pTooltip="Logout" tooltipPosition="left" (click)="logout()"></button>
   </ng-template>
 
 </p-menubar>

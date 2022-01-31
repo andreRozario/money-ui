@@ -21,11 +21,9 @@ export class LoginComponent implements OnInit {
   @ViewChild('password') password: any;
 
   constructor(
-    public auth: AuthService,
+    private auth: AuthService,
     private formBuilder: FormBuilder,
-    private messageService: MessageService,
     private errorHandler: ErrorHandlerService,
-    private route: ActivatedRoute,
     private router: Router,
     private title: Title
   ) {}

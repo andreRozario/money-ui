@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { MenuItem } from 'primeng/api';
 
 import { AuthService } from 'src/app/security/auth.service';
 import { User } from 'src/app/_model/user';
+import { ErrorHandlerService } from '../error-handler.service';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +20,11 @@ export class NavbarComponent implements OnInit {
 
   user = new User();
 
-  constructor(private auth: AuthService) { }
+  constructor(
+    private auth: AuthService,
+    private errorHandler: ErrorHandlerService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
 
@@ -32,6 +38,17 @@ export class NavbarComponent implements OnInit {
       {
         label: 'Pessoas',
         items: []
+      },
+      {
+        items: [
+          {
+            label: 'Logout',
+            icon: 'pi pi-power-off',
+            command: () => {
+              this.logout();
+            }
+          }
+        ]
       }
     ];
 
@@ -46,6 +63,15 @@ export class NavbarComponent implements OnInit {
     this.accessVerification('SHOW_PERSON', 1, 'Listar', 'pi pi-align-left', ['/persons']);
 
     this.accessVerification('SAVE_PERSON', 1, 'Adicionar', 'pi pi-plus', ['/persons/create']);
+  }
+
+  logout() {
+
+    this.auth.logout().then(() => {
+
+      this.router.navigate(['/login']);
+
+    }).catch(error => this.errorHandler.handle(error));
   }
 
   private accessVerification(permission: string, i: number, label: string, icon: string, routerLink: Array<any>) {

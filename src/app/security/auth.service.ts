@@ -46,6 +46,16 @@ export class AuthService {
     });
   }
 
+  logout(): Promise<void> {
+
+    const url = 'http://localhost:8080/tokens/revoke';
+
+    return firstValueFrom(this.http.delete(url, { withCredentials: true })).then(() => {
+
+      this.cleanAccessToken();
+    });
+  }
+
   hasAuthority(permission: string) {
 
     return this.payload && this.payload.authorities.includes(permission);
@@ -84,6 +94,13 @@ export class AuthService {
 
       return Promise.resolve();
     });
+  }
+
+  cleanAccessToken() {
+
+    localStorage.removeItem('token');
+
+    this.payload = null;
   }
 
   isAccessTokenNotValid() {
