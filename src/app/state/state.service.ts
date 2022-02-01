@@ -1,5 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { environment } from 'src/environments/environment';
 
 import { firstValueFrom } from 'rxjs';
 
@@ -8,7 +10,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class StateService {
 
-  url = 'http://localhost:8080/states';
+  url = `${environment.domain}/states`;
 
   constructor(private http: HttpClient) { }
 

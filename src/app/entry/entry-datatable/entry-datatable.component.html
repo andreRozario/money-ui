@@ -48,7 +48,7 @@
       </td>
       <td class="col-actions">
         <button icon="pi pi-pencil mx-1" pButton [routerLink]="['/entries/edit', entry.id]"
-          pTooltip="Editar" tooltipPosition="top"></button>
+          pTooltip="Editar" tooltipPosition="top" [disabled]="hasNoPermission('SAVE_ENTRY')"></button>
         <button class="p-button-danger mx-1" icon="pi pi-trash" pButton
           pTooltip="Deletar" tooltipPosition="top" (click)="DeleteByIdEmitter({ entry, grid })" [disabled]="hasNoPermission('DELETE_ENTRY')"></button>
       </td>

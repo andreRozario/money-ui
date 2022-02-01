@@ -5,8 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 import { CoreModule } from './core/core.module';
-import { EntryModule } from './entry/entry.module';
-import { PersonModule } from './person/person.module';
 import { SecurityModule } from './security/security.module';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,8 +18,6 @@ import { AppComponent } from './app.component';
     HttpClientModule,
 
     CoreModule,
-    EntryModule,
-    PersonModule,
     SecurityModule,
 
     AppRoutingModule

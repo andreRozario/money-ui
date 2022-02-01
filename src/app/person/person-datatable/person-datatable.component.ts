@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+
 import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
+
+import { AuthService } from 'src/app/security/auth.service';
 
 @Component({
   selector: 'app-person-datatable',
@@ -23,6 +26,10 @@ export class PersonDatatableComponent {
 
   @ViewChild('table') grid!: Table;
 
+  constructor(private auth: AuthService) {
+
+  }
+
   LazyLoadEmmiter(event: LazyLoadEvent): void {
 
     const page: number = (event.first! / event.rows!);
@@ -38,5 +45,10 @@ export class PersonDatatableComponent {
   StatusUpdateEmitter(person: any): void { // person = { person.id, person.status, ... }
 
     this.onStatusUpdate.emit(person);
+  }
+
+  hasNoPermission(permission: string) {
+
+    return !this.auth.hasAuthority(permission);
   }
 }

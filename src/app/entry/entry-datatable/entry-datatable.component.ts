@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 
 import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
+
 import { AuthService } from 'src/app/security/auth.service';
 
 @Component({
@@ -40,6 +41,7 @@ export class EntryDatatableComponent {
   }
 
   hasNoPermission(permission: string) {
+
     return !this.auth.hasAuthority(permission);
   }
 }

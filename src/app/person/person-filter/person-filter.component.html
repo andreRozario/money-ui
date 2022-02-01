@@ -44,7 +44,7 @@
   <div class="grid-nogutter mt-4">
 
     <div class="col">
-      <button type="button" label="Nova Pessoa" pButton routerLink="/persons/create"></button>
+      <button type="button" label="Nova Pessoa" pButton routerLink="/persons/create" [disabled]="hasNoPermission('SAVE_PERSON')"></button>
     </div>
 
   </div>

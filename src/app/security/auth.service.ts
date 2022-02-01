@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { environment } from 'src/environments/environment';
+
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { firstValueFrom } from 'rxjs';
@@ -10,7 +12,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class AuthService {
 
-  url = 'http://localhost:8080/oauth/token';
+  url = `${environment.domain}/oauth/token`;
 
   payload: any;
 
@@ -48,7 +50,7 @@ export class AuthService {
 
   logout(): Promise<void> {
 
-    const url = 'http://localhost:8080/tokens/revoke';
+    const url = `${environment.domain}/tokens/revoke`;
 
     return firstValueFrom(this.http.delete(url, { withCredentials: true })).then(() => {
 

@@ -52,6 +52,14 @@ h1 {
   margin-right: 10px;
 }
 
+/* Not Allowed Element */
+
+.not-allowed {
+  cursor: not-allowed;
+  pointer-events: none;
+  outline: none;
+}
+
 /* HACKS */
 
 /* .p-paginator .p-paginator-pages .p-paginator-page {

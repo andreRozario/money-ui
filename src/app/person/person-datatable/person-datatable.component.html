@@ -36,14 +36,17 @@
         <span class="p-column-title">Status</span>
 
         <a href="javascript:;" [pTooltip]="person.status ? 'Inativar' : 'Ativar'" tooltipPosition="top" (click)="StatusUpdateEmitter(person)"
-          class="p-tag block text-center no-underline" [ngClass]="{'p-tag-success' : person.status, 'p-tag-danger' : !person.status}" [ngStyle]="{'border-radius':'10rem'}">
+          class="p-tag block text-center no-underline" [ngClass]="{'p-tag-success' : person.status, 'p-tag-danger' : !person.status, 'not-allowed' : hasNoPermission('SAVE_PERSON')}"
+          [ngStyle]="{'border-radius':'10rem'}">
           {{ person.status ? 'Ativo' : 'Inativo' }}
         </a>
 
       </td>
       <td class="col-actions">
-        <button icon="pi pi-pencil mx-1" pButton [routerLink]="['/persons/edit', person.id]" pTooltip="Editar" tooltipPosition="top"></button>
-        <button class="p-button-danger mx-1" icon="pi pi-trash" pButton pTooltip="Deletar" tooltipPosition="top" (click)="DeleteByIdEmitter({ person, grid })"></button>
+        <button icon="pi pi-pencil mx-1" pButton [routerLink]="['/persons/edit', person.id]"
+          pTooltip="Editar" tooltipPosition="top" [disabled]="hasNoPermission('SAVE_PERSON')"></button>
+        <button class="p-button-danger mx-1" icon="pi pi-trash" pButton
+          pTooltip="Deletar" tooltipPosition="top" (click)="DeleteByIdEmitter({ person, grid })" [disabled]="hasNoPermission('DELETE_PERSON')"></button>
       </td>
     </tr>
   </ng-template>

@@ -1,16 +1,16 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { firstValueFrom } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
-import { City } from '../_model/city';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CityService {
 
-  url = 'http://localhost:8080/cities';
+  url = `${environment.domain}/cities`;
 
   constructor(private http: HttpClient) {}
 

@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { environment } from 'src/environments/environment';
+
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
@@ -37,8 +39,8 @@ export function tokenGetter(): string | null {
     JwtModule.forRoot({
       config: {
         tokenGetter,
-        allowedDomains: [ 'localhost:8080' ],
-        disallowedRoutes: [ 'http://localhost:8080/oauth/token' ]
+        allowedDomains: environment.tokenAllowedDomains,
+        disallowedRoutes: environment.tokenDisallowedRoutes
       }
     }),
 

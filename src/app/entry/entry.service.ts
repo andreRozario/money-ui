@@ -1,6 +1,8 @@
 import { DatePipe } from '@angular/common';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { environment } from 'src/environments/environment';
 
 import { firstValueFrom } from 'rxjs';
 
@@ -24,7 +26,7 @@ export class EntryFilter {
 })
 export class EntryService {
 
-  url = 'http://localhost:8080/entries';
+  url = `${environment.domain}/entries`;
 
   constructor(
     private http: HttpClient,

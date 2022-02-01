@@ -70,7 +70,7 @@
   <div class="grid-nogutter mt-4">
 
     <div class="col">
-      <button type="button" label="Novo Lançamento" pButton routerLink="/entries/create"></button>
+      <button type="button" label="Novo Lançamento" pButton routerLink="/entries/create" [disabled]="hasNoPermission('SAVE_ENTRY')"></button>
     </div>
 
   </div>
