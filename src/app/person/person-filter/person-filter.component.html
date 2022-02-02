@@ -1,50 +1,54 @@
 <div class="container">
 
-  <h1>Pessoas</h1>
+  <div class="mx-2">
 
-  <form autocomplete="off" (ngSubmit)="findByNameContaining()">
+    <h1>Pessoas</h1>
 
-    <p-card [style]="{'background-color': '#252f3d'}">
+    <form autocomplete="off" (ngSubmit)="findByNameContaining()">
 
-      <div class="formgrid grid">
+      <p-card [style]="{'background-color': '#252f3d'}">
 
-        <div class="col-12">
+        <div class="formgrid grid">
 
-          <div class="field p-inputgroup">
-            <span class="p-inputgroup-addon"><i class="pi pi-check-circle"></i></span>
-            <span class="p-float-label">
-              <input id="name" class="p-inputtext-lg" type="text" name="name" [(ngModel)]="filter.name" pInputText>
-              <label for="name">Nome</label>
-            </span>
+          <div class="col-12">
+
+            <div class="field p-inputgroup">
+              <span class="p-inputgroup-addon"><i class="pi pi-check-circle"></i></span>
+              <span class="p-float-label">
+                <input id="name" class="p-inputtext-lg" type="text" name="name" [(ngModel)]="filter.name" pInputText>
+                <label for="name">Nome</label>
+              </span>
+            </div>
+
           </div>
 
         </div>
 
+        <ng-template pTemplate="footer">
+          <button type="submit" label="Pesquisar" pButton></button>
+        </ng-template>
+
+      </p-card>
+
+    </form>
+
+    <div class="grid-nogutter mt-4">
+
+      <div class="col">
+
+        <app-person-datatable [persons]="persons" [size]="filter.size" [totalElements]="totalElements"
+          (onLazyLoad)="onPageChange($event)" (onDelete)="confirmation($event)" (onStatusUpdate)="statusUpdate($event)"></app-person-datatable>
+
       </div>
-
-      <ng-template pTemplate="footer">
-        <button type="submit" label="Pesquisar" pButton></button>
-      </ng-template>
-
-    </p-card>
-
-  </form>
-
-  <div class="grid-nogutter mt-4">
-
-    <div class="col">
-
-      <app-person-datatable [persons]="persons" [size]="filter.size" [totalElements]="totalElements"
-        (onLazyLoad)="onPageChange($event)" (onDelete)="confirmation($event)" (onStatusUpdate)="statusUpdate($event)"></app-person-datatable>
 
     </div>
 
-  </div>
+    <div class="grid-nogutter mt-4">
 
-  <div class="grid-nogutter mt-4">
+      <div class="col">
+        <button type="button" label="Nova Pessoa" pButton routerLink="/persons/create" [disabled]="hasNoPermission('SAVE_PERSON')"></button>
+      </div>
 
-    <div class="col">
-      <button type="button" label="Nova Pessoa" pButton routerLink="/persons/create" [disabled]="hasNoPermission('SAVE_PERSON')"></button>
     </div>
 
   </div>

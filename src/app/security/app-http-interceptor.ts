@@ -14,7 +14,7 @@ export class AppHttpInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (!request.url.includes('/login') && localStorage.getItem('token')) { // TODO
+    if (!request.url.includes('/login') && !this.auth.isAccessTokenNotValid()) {
 
       if (!request.url.includes('/oauth/token') && this.auth.isAccessTokenNotValid()) {
 
