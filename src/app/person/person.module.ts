@@ -9,7 +9,6 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
 import { TooltipModule } from 'primeng/tooltip';
 
 import { SharedModule } from '../shared/shared.module';
@@ -32,7 +31,6 @@ import { PersonDatatableComponent } from './person-datatable/person-datatable.co
     InputMaskModule,
     InputTextModule,
     TableModule,
-    TagModule,
     TooltipModule,
 
     SharedModule,

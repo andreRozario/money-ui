@@ -81,8 +81,6 @@ export class DashboardComponent implements OnInit {
 
     this.service.countTypeByDay().then((dataset: Array<any>) => {
 
-      console.log(dataset);
-
       const dates = this.dateConfig();
       const incomes = this.totalByEachDate(dataset.filter(data => data.type === 'RECEITA'), dates);
       const outcomes = this.totalByEachDate(dataset.filter(data => data.type === 'DESPESA'), dates);

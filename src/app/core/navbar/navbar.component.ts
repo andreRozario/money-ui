@@ -44,6 +44,10 @@ export class NavbarComponent implements OnInit {
         items: []
       },
       {
+        label: 'Relatórios',
+        items: []
+      },
+      {
         items: [
           {
             label: 'Logout',
@@ -71,6 +75,10 @@ export class NavbarComponent implements OnInit {
     this.accessVerification('SHOW_PERSON', 2, 'Listar', 'pi pi-align-left', ['/persons']);
 
     this.accessVerification('SAVE_PERSON', 2, 'Adicionar', 'pi pi-plus', ['/persons/create']);
+
+    // REPORT
+
+    this.accessVerification('SHOW_ENTRY', 3, 'Lançamentos por Pessoa', 'pi pi-file', ['/reports/entries-by-person']);
   }
 
   logout() {

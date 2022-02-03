@@ -1,0 +1,58 @@
+<div class="container">
+
+  <div class="mx-2">
+
+    <h1>Relatório de Lançamentos por Pessoa</h1>
+
+    <p-card [style]="{'background-color': '#252f3d'}">
+
+      <form autocomplete="off" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <div class="formgrid grid">
+
+          <div class="col-12 md:col-3 sm:col-6 mt-4">
+
+            <div class="field">
+              <span class="p-float-label">
+                <p-calendar inputId="initialDate" class="p-inputtext-lg" aria-describedby="initialDate-help" formControlName="initialDate" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
+                <label for="initialDate">Data Inicial</label>
+              </span>
+            </div>
+
+            <app-message id="initialDate-help" [control]="f['initialDate']" state="dirty" error="required" text="Campo data inicial é obrigatório"></app-message>
+
+          </div>
+
+          <div class="col-12 md:col-3 sm:col-6 mt-4">
+
+            <div class="field">
+              <span class="p-float-label">
+                <p-calendar inputId="finalDate" class="p-inputtext-lg" aria-describedby="finalDate-help" formControlName="finalDate" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
+                <label for="finalDate">Data Final</label>
+              </span>
+            </div>
+
+            <app-message id="finalDate-help" [control]="f['finalDate']" state="dirty" error="required" text="Campo data final é obrigatório"></app-message>
+
+          </div>
+
+        </div>
+
+        <div class="formgrid grid">
+
+          <div class="col-12 mt-4">
+
+            <button class="mr-2" type="submit" label="Gerar Relatório" pButton [disabled]="!form.valid"></button>
+            <button class="p-button-secondary mr-2" type="button" label="Cancelar" pButton (click)="reset()"></button>
+
+          </div>
+
+        </div>
+
+      </form>
+
+    </p-card>
+
+  </div>
+
+</div>

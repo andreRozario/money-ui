@@ -6,9 +6,17 @@ import { ForbiddenAccessComponent } from "./core/forbidden-access.component";
 
 const routes: Routes = [
 
+  // RESOURCES
+
   { path: 'dashboard', loadChildren: () => import('../app/dashboard/dashboard.module').then(m => m.DashboardModule) },
   { path: 'entries', loadChildren: () => import('../app/entry/entry.module').then(m => m.EntryModule) },
   { path: 'persons', loadChildren: () => import('../app/person/person.module').then(m => m.PersonModule) },
+
+  // REPORTS
+
+  { path: 'reports', loadChildren: () => import('../app/report/report.module').then(m => m.ReportModule) },
+
+  // APPLICATION
 
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'page-not-found', component: PageNotFoundComponent },
