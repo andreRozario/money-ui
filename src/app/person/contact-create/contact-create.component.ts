@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Contact } from 'src/app/_model/contact';
@@ -12,32 +12,17 @@ export class ContactCreateComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
 
+  display: boolean = false;
+
+  index!: number;
+
   @Input() parent!: FormGroup;
-
-  @Input() index!: number;
-
-  @Output() onAddContact = new EventEmitter();
-
-  @Output() onConfirmContact = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
 
     this.initForm();
-
-    this.addContactEmmiter(this.form);
-
-    // this.form.get('phone')?.valueChanges.subscribe(value => {
-
-    //   if(value.length > 10)
-
-    //     this.mask='(00) 00000-0000';
-
-    //    else
-
-    //     this.mask= '(00) 0000-0000';
-    // });
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -55,30 +40,45 @@ export class ContactCreateComponent implements OnInit {
     this.form.reset();
   }
 
+  addContact() {
+
+    this.form.reset();
+
+    this.display = true;
+
+    this.index = this.parent.get('contacts')!.value.length;
+  }
+
   confirmContact() {
 
     const contact = this.form.value;
 
-    // this.parent.value.contacts.push(this.clone(contact));
+    this.parent.get('contacts')!.value[this.index!] = this.clone(contact);
 
-    this.parent.value.contacts[this.index!] = this.clone(contact);
+    this.display = false;
 
     this.form.reset();
+  }
+
+  editContact(contact: Contact, index: number) {
+
+    this.parent.get('contacts')!.value[index] = this.clone(contact);
+
+    this.form.setValue(this.clone(contact));
+
+    this.display = true;
+
+    this.index = index;
+  }
+
+  removeContact(index: number) {
+
+    this.parent.get('contacts')!.value.splice(index, 1);
   }
 
   clone(contact: Contact): Contact {
 
     return new Contact(contact.id, contact.name, contact.email, contact.phone);
-  }
-
-  addContactEmmiter(form: any): void {
-
-    this.onAddContact.emit(form);
-  }
-
-  confirmContactEmmiter(display: any): void {
-
-    this.onConfirmContact.emit(display);
   }
 
   private initForm() {

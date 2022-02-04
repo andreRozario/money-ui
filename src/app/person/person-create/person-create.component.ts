@@ -13,7 +13,6 @@ import { StateService } from 'src/app/state/state.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 import { Person } from 'src/app/_model/person';
-import { Contact } from 'src/app/_model/contact';
 
 @Component({
   selector: 'app-person-create',
@@ -24,15 +23,9 @@ export class PersonCreateComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
 
-  contact: FormGroup = new FormGroup({});
-
-  index!: number; // Contacts FormArray Index
-
   cities: any[] = [];
 
   states: any[] = [];
-
-  showContactForm = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -106,84 +99,24 @@ export class PersonCreateComponent implements OnInit {
 
     const person = this.form.value;
 
-    // console.log(person);
-
-
     this.personService.update(person).then((person: Person) => {
 
-      // this.f['contacts']!.value[this.index!] = this.contact.value[this.index!];
-
-      // const contacts = this.f['contacts'] as FormArray;
-
-      // person.contacts.forEach((element, index) => {
-
-      //   console.log(index);
-
-        // this.f['contacts']!.value[this.index!] = this.createContactsFormgroup();
-
-
-        // contacts.push(this.createContactsFormgroup());
-      // });
-
-      // console.log(person);
       const contacts = this.f['contacts'] as FormArray;
 
-      // person.contacts.forEach((contact, index) => {
+      contacts.clear();
 
-      //   contacts!.value[index] = this.createContactsFormgroup();
-      // });
+      person.contacts.forEach(() => {
 
-      console.log(contacts.value);
-      console.log(person);
+        contacts.push(this.createContactsFormgroup());
+      });
 
-
-      this.form.setValue(person);
+      this.form.patchValue(person);
 
       this.titleUpdate();
 
       this.messageService.add({ severity:'success', summary: 'Sucesso', detail: 'Pessoa alterada na base de dados!', icon: 'pi-check-circle' });
 
     }).catch(error => this.errorHandler.handle(error));
-  }
-
-  addContact() {
-
-    this.contact.reset();
-
-    this.showContactForm = true;
-
-    this.index = this.f['contacts']!.value.length;
-  }
-
-  editContact(contact: Contact, index: number) {
-
-    this.f['contacts']!.value[index] = this.clone(contact);
-
-    this.contact.setValue(this.clone(contact));
-
-    this.showContactForm = true;
-
-    this.index = index;
-  }
-
-  removeContact(index: number) {
-
-    this.f['contacts']!.value.splice(index, 1);
-  }
-
-  resetContact(form: any) {
-
-    this.contact = form;
-  }
-
-  confirmContact(display: any) { // onConfirmContact - EventEmitter
-
-    this.showContactForm = display;
-  }
-
-  clone(contact: Contact): Contact {
-
-    return new Contact(contact.id, contact.name, contact.email, contact.phone);
   }
 
   loadPerson(id: number) {
