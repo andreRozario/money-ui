@@ -1,0 +1,70 @@
+<form autocomplete="off" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <div class="formgrid grid">
+
+    <div class="col-12 mt-4">
+
+      <div class="field p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-check-circle"></i></span>
+        <span class="p-float-label">
+          <input id="name" class="p-inputtext-lg" type="text" formControlName="name" pInputText>
+          <label for="name">Nome</label>
+        </span>
+      </div>
+
+      <app-message id="name-help" [control]="f['name']" state="dirty" error="required" text="Campo nome é obrigatório"></app-message>
+      <app-message id="name-help" [control]="f['name']" state="dirty" error="minlength" text="Mínimo de {{ f['name'].errors?.['minlength']?.requiredLength }} caracteres. Você digitou apenas {{ f['name'].errors?.['minlength']?.actualLength }}"></app-message>
+
+    </div>
+
+  </div>
+
+  <div class="formgrid grid">
+
+    <div class="col-12 mt-4">
+
+      <div class="field p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-envelope"></i></span>
+        <span class="p-float-label">
+          <input id="email" class="p-inputtext-lg" type="text" formControlName="email" pInputText>
+          <label for="email">Email</label>
+        </span>
+      </div>
+
+      <app-message id="email-help" [control]="f['email']" state="dirty" error="required" text="Campo email é obrigatório"></app-message>
+      <app-message id="email-help" [control]="f['email']" state="dirty" error="email" text="Campo email deve possuir um formato válido"></app-message>
+
+    </div>
+
+  </div>
+
+  <div class="formgrid grid">
+
+    <div class="col-12 mt-4">
+
+      <div class="field p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-phone"></i></span>
+        <span class="p-float-label">
+          <p-inputMask inputId="phone" styleClass="p-inputtext-lg w-full border-noround--left" formControlName="phone" mask="(99) 99999-999?9" [ngStyle]="{ 'width': '100%' }"></p-inputMask>
+          <label for="phone">Telefone</label>
+        </span>
+      </div>
+
+      <app-message id="phone-help" [control]="f['phone']" state="dirty" error="required" text="Campo telefone é obrigatório"></app-message>
+
+    </div>
+
+  </div>
+
+  <div class="formgrid grid">
+
+    <div class="col-12 mt-4">
+
+      <button class="mr-2" type="submit" label="Confirmar" pButton [disabled]="!form.valid" (click)="confirmContactEmmiter(false)"></button>
+      <button class="p-button-secondary mr-2" type="button" label="Cancelar" pButton (click)="reset()"></button>
+
+    </div>
+
+  </div>
+
+</form>

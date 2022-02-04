@@ -1,4 +1,5 @@
 import { Address } from "./address";
+import { Contact } from "./contact";
 
 export class Person {
 
@@ -6,5 +7,5 @@ export class Person {
   name?:string;
   address = new Address();
   status = true;
-  // contacts = new Array<Contact>();
+  contacts = new Array<Contact>();
 }

@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
@@ -18,6 +19,7 @@ import { PersonRoutingModule } from './person-routing.module';
 import { PersonCreateComponent } from './person-create/person-create.component';
 import { PersonFilterComponent } from './person-filter/person-filter.component';
 import { PersonDatatableComponent } from './person-datatable/person-datatable.component';
+import { ContactCreateComponent } from './contact-create/contact-create.component';
 
 @NgModule({
   imports: [
@@ -27,6 +29,7 @@ import { PersonDatatableComponent } from './person-datatable/person-datatable.co
 
     ButtonModule,
     CardModule,
+    DialogModule,
     DropdownModule,
     InputMaskModule,
     InputTextModule,
@@ -40,7 +43,8 @@ import { PersonDatatableComponent } from './person-datatable/person-datatable.co
   declarations: [
     PersonCreateComponent,
     PersonFilterComponent,
-    PersonDatatableComponent
+    PersonDatatableComponent,
+    ContactCreateComponent
   ],
   exports: []
 })

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
@@ -13,6 +13,7 @@ import { StateService } from 'src/app/state/state.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 import { Person } from 'src/app/_model/person';
+import { Contact } from 'src/app/_model/contact';
 
 @Component({
   selector: 'app-person-create',
@@ -23,9 +24,15 @@ export class PersonCreateComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
 
+  contact: FormGroup = new FormGroup({});
+
+  index!: number; // Contacts FormArray Index
+
   cities: any[] = [];
 
   states: any[] = [];
+
+  showContactForm = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,17 +61,6 @@ export class PersonCreateComponent implements OnInit {
     this.loadCities();
 
     this.loadStates();
-  }
-
-  loadPerson(id: number) {
-
-    this.personService.findById(id).then((person: Person) => {
-
-      this.form.patchValue(person);
-
-      this.titleUpdate();
-
-    }).catch(error => this.errorHandler.handle(error));
   }
 
   get isEditing() {
@@ -110,13 +106,100 @@ export class PersonCreateComponent implements OnInit {
 
     const person = this.form.value;
 
+    // console.log(person);
+
+
     this.personService.update(person).then((person: Person) => {
 
-      this.form.patchValue(person);
+      // this.f['contacts']!.value[this.index!] = this.contact.value[this.index!];
+
+      // const contacts = this.f['contacts'] as FormArray;
+
+      // person.contacts.forEach((element, index) => {
+
+      //   console.log(index);
+
+        // this.f['contacts']!.value[this.index!] = this.createContactsFormgroup();
+
+
+        // contacts.push(this.createContactsFormgroup());
+      // });
+
+      // console.log(person);
+      const contacts = this.f['contacts'] as FormArray;
+
+      // person.contacts.forEach((contact, index) => {
+
+      //   contacts!.value[index] = this.createContactsFormgroup();
+      // });
+
+      console.log(contacts.value);
+      console.log(person);
+
+
+      this.form.setValue(person);
 
       this.titleUpdate();
 
       this.messageService.add({ severity:'success', summary: 'Sucesso', detail: 'Pessoa alterada na base de dados!', icon: 'pi-check-circle' });
+
+    }).catch(error => this.errorHandler.handle(error));
+  }
+
+  addContact() {
+
+    this.contact.reset();
+
+    this.showContactForm = true;
+
+    this.index = this.f['contacts']!.value.length;
+  }
+
+  editContact(contact: Contact, index: number) {
+
+    this.f['contacts']!.value[index] = this.clone(contact);
+
+    this.contact.setValue(this.clone(contact));
+
+    this.showContactForm = true;
+
+    this.index = index;
+  }
+
+  removeContact(index: number) {
+
+    this.f['contacts']!.value.splice(index, 1);
+  }
+
+  resetContact(form: any) {
+
+    this.contact = form;
+  }
+
+  confirmContact(display: any) { // onConfirmContact - EventEmitter
+
+    this.showContactForm = display;
+  }
+
+  clone(contact: Contact): Contact {
+
+    return new Contact(contact.id, contact.name, contact.email, contact.phone);
+  }
+
+  loadPerson(id: number) {
+
+    this.personService.findById(id).then((person: Person) => {
+
+      const contacts = this.f['contacts'] as FormArray;
+
+      person.contacts.forEach(() => {
+
+        contacts.push(this.createContactsFormgroup());
+      });
+
+      this.form.patchValue(person);
+
+      this.titleUpdate();
 
     }).catch(error => this.errorHandler.handle(error));
   }
@@ -172,11 +255,20 @@ export class PersonCreateComponent implements OnInit {
         })
       }),
 
-      contacts: this.formBuilder.array([
-        // this.formBuilder.control('')
-      ]),
+      contacts: this.formBuilder.array([]),
 
       status: [ true ]
+    });
+  }
+
+  private createContactsFormgroup(): FormGroup {
+
+    return this.formBuilder.group({
+
+      id: [],
+      name: [ null, [ Validators.required, Validators.minLength(5) ] ],
+      email: [ null, [ Validators.required, Validators.email ] ],
+      phone: [ null, Validators.required ]
     });
   }
 }
