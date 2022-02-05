@@ -32,6 +32,8 @@ export class EntryCreateComponent implements OnInit {
 
   persons: any[] = [];
 
+  uploading = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private categoryService: CategoryService,
@@ -79,6 +81,27 @@ export class EntryCreateComponent implements OnInit {
   get f(): { [key: string]: AbstractControl } {
 
     return this.form.controls;
+  }
+
+  get uploadHeaders() {
+
+    return this.entryService.uploadHeaders();
+  }
+
+  get uploadURL() {
+
+    return this.entryService.uploadURL();
+  }
+
+  get fileName() {
+
+    const fileName = this.f['attachment']?.value;
+
+    if (fileName)
+
+      return fileName.substring(fileName.indexOf('_') + 2, fileName.length);
+
+    return null;
   }
 
   onSubmit() {
@@ -150,6 +173,38 @@ export class EntryCreateComponent implements OnInit {
     this.router.navigate(['entries/create']);
   }
 
+  onBeforeUpload() {
+
+    this.uploading = true;
+  }
+
+  onUpload(event: any) {
+
+    const attachment = event.originalEvent.body;
+
+    this.form.patchValue({
+      attachment: attachment.filename,
+      urlAttachment: (attachment.url as string).replace('\\', 'https://')
+    });
+
+    this.uploading = false;
+  }
+
+  onError(event: any) {
+
+    this.messageService.add({ severity:'error', summary: 'Atenção!', detail: 'Erro ao tentar enviar anexo!', icon: 'pi-exclamation-circle' });
+
+    this.uploading = false;
+  }
+
+  removeAttachement() {
+
+    this.form.patchValue({
+      attachment: null,
+      urlAttachment: null
+    });
+  }
+
   private titleUpdate() {
 
     this.title.setTitle(`Editar Lançamento: ${ this.form.get('description')?.value }`);
@@ -170,7 +225,9 @@ export class EntryCreateComponent implements OnInit {
       person: this.formBuilder.group({
         id: [ null, Validators.required ]
       }),
-      observation: []
+      observation: [],
+      attachment: [],
+      urlAttachment: []
     });
   }
 }

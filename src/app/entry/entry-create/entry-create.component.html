@@ -117,7 +117,7 @@
 
           <div class="col-12 mt-4">
 
-            <div class="field p-inputgroup">
+            <div class="field p-inputgroup mb-0">
               <span class="p-inputgroup-addon"><i class="pi pi-check-circle"></i></span>
               <span class="p-float-label">
                 <textarea  id="observation" formControlName="observation" rows="5" pInputTextarea></textarea>
@@ -129,11 +129,44 @@
 
         </div>
 
+        <div class="formgrid grid" *ngIf="!f['attachment']?.value">
+
+          <div class="col-12 mt-4 flex justify-content-end flex-wrap">
+
+            <p-fileUpload name="file" mode="basic" [auto]="true" [maxFileSize]="100000000" [hidden]="uploading"
+              chooseLabel="Anexar" chooseIcon="pi pi-upload" accept="image/*,application/*" [headers]="uploadHeaders" [url]="uploadURL"
+              (onBeforeUpload)="onBeforeUpload()" (onUpload)="onUpload($event)" (onError)="onError($event)"></p-fileUpload>
+
+            <div class="w-full" [hidden]="!uploading">
+
+              <h5 class="mt-0">Enviando Arquivo...</h5>
+
+              <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="formgrid grid" *ngIf="f['attachment']?.value">
+
+          <div class="col-12 mt-4 flex justify-content-between flex-wrap">
+
+            <button class="p-button-danger flex align-items-center" type="button" icon="pi pi-times" pTooltip="Remover Anexo" tooltipPosition="top" pButton (click)="removeAttachement()"></button>
+
+            <a [href]="f['urlAttachment']?.value" target="_blank" class="p-tag p-tag-success no-underline flex align-items-center px-3 py-2"
+              pTooltip="Baixar Anexo" tooltipPosition="left" [ngStyle]="{'border-radius':'10rem'}"><i class="pi pi-download mr-1"></i> {{ fileName }}</a>
+
+          </div>
+
+        </div>
+
         <div class="formgrid grid">
 
           <div class="col-12 mt-4">
 
-            <button class="mr-2" type="submit" label="Salvar" pButton [disabled]="!form.valid"></button>
+            <button class="mr-2" type="submit" label="Salvar" pButton [disabled]="!form.valid || uploading"></button>
             <button class="p-button-secondary mr-2" type="button" label="Novo" pButton (click)="new()"></button>
             <button class="p-button-info p-button-text" type="button" label="Voltar para pesquisa" pButton routerLink="/entries"></button>
 

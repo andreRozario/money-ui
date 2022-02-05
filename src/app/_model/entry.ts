@@ -14,6 +14,8 @@ export class Entry {
   type = 'RECEITA';
   category = new Category();
   person = new Person();
+  attachment!: string;
+  urlAttachment!: string;
 
   static dateFormat(entry: Entry, datePipe: DatePipe): any {
 

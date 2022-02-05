@@ -107,6 +107,21 @@
 
           <div class="formgrid grid" formGroupName="city">
 
+            <div class="col-12 md:col-3 sm:col-5 mt-4" formGroupName="state">
+
+              <div class="field p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-compass"></i></span>
+                <span class="p-float-label">
+                  <p-dropdown inputId="state" [options]="states" aria-describedby="state-help" formControlName="id" optionLabel="label" optionValue="value" placeholder=" " [filter]="true"
+                    emptyFilterMessage="Nenhum Resultado Encontrado" styleClass="p-inputtext p-inputtext-lg h-3rem border-noround--left" (onChange)="loadCities()"></p-dropdown>
+                  <label for="state">Estado</label>
+                </span>
+              </div>
+
+              <app-message id="state-help" [control]="f['address'].get('city.state.id')" state="touched" error="required" text="Campo estado é obrigatório"></app-message>
+
+            </div>
+
             <div class="col-12 md:col-9 sm:col-7 mt-4">
 
               <div class="field p-inputgroup">
@@ -119,21 +134,6 @@
               </div>
 
               <app-message id="city-help" [control]="f['address'].get('city.id')" state="touched" error="required" text="Campo cidade é obrigatório"></app-message>
-
-            </div>
-
-            <div class="col-12 md:col-3 sm:col-5 mt-4" formGroupName="state">
-
-              <div class="field p-inputgroup">
-                <span class="p-inputgroup-addon"><i class="pi pi-compass"></i></span>
-                <span class="p-float-label">
-                  <p-dropdown inputId="state" [options]="states" aria-describedby="state-help" formControlName="id" optionLabel="label" optionValue="value" placeholder=" " [filter]="true"
-                    emptyFilterMessage="Nenhum Resultado Encontrado" styleClass="p-inputtext p-inputtext-lg h-3rem border-noround--left"></p-dropdown>
-                  <label for="state">Estado</label>
-                </span>
-              </div>
-
-              <app-message id="state-help" [control]="f['address'].get('city.state.id')" state="touched" error="required" text="Campo estado é obrigatório"></app-message>
 
             </div>
 

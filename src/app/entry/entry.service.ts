@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from 'src/environments/environment';
@@ -87,9 +87,19 @@ export class EntryService {
     return firstValueFrom(this.http.put<Entry>(`${this.url}/${entry.id}`, Entry.dateFormat(entry, this.datePipe))).then((response: Entry) => response);
   }
 
-  deleteById(id: number) {
+  deleteById(id: number): Promise<void> {
 
-    return firstValueFrom(this.http.delete(`${this.url}/${id}`)).then(() => null);
+    return firstValueFrom(this.http.delete(`${this.url}/${id}`)).then(() => {});
+  }
+
+  uploadHeaders(): HttpHeaders {
+
+    return new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('token')}`);
+  }
+
+  uploadURL(): string {
+
+    return `${this.url}/attachment`;
   }
 }
 

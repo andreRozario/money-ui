@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 import { firstValueFrom } from 'rxjs';
+import { State } from '../_model/state';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class StateService {
 
   constructor(private http: HttpClient) { }
 
-  findAll(): Promise<any> {
+  findAll(): Promise<State[]> {
 
-    return firstValueFrom(this.http.get(`${this.url}`));
+    return firstValueFrom(this.http.get<Array<State>>(`${this.url}`));
   }
 }

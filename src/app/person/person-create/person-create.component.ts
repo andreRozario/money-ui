@@ -13,6 +13,8 @@ import { StateService } from 'src/app/state/state.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 import { Person } from 'src/app/_model/person';
+import { City } from 'src/app/_model/city';
+import { State } from 'src/app/_model/state';
 
 @Component({
   selector: 'app-person-create',
@@ -26,6 +28,8 @@ export class PersonCreateComponent implements OnInit {
   cities: any[] = [];
 
   states: any[] = [];
+
+  state!: number; // Selected State ID on P-Dropdown
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,15 +49,13 @@ export class PersonCreateComponent implements OnInit {
 
     const id = this.route.snapshot.params['id'];
 
+    this.initForm();
+
+    this.loadStates();
+
     if (id)
 
       this.loadPerson(id);
-
-    this.initForm();
-
-    this.loadCities();
-
-    this.loadStates();
   }
 
   get isEditing() {
@@ -134,14 +136,13 @@ export class PersonCreateComponent implements OnInit {
 
       this.titleUpdate();
 
-    }).catch(error => this.errorHandler.handle(error));
-  }
+      // RELOAD PERSISTED CITY
 
-  loadCities() {
+      this.state = this.f['address'].get('city') ? this.f['address'].get('city.state.id')?.value : undefined;
 
-    return this.cityService.findByStateId(26).then(cities => {
+      if (this.state)
 
-      this.cities = cities.map((s: { name: string; id: number; }) => ({ label: s.name, value: s.id }));
+        this.loadCities();
 
     }).catch(error => this.errorHandler.handle(error));
   }
@@ -150,7 +151,24 @@ export class PersonCreateComponent implements OnInit {
 
     return this.stateService.findAll().then(states => {
 
-      this.states = states.map((s: { name: string; id: number; }) => ({ label: s.name, value: s.id }));
+      this.states = states.map((s: State) => ({ label: s.name, value: s.id }));
+
+    }).catch(error => this.errorHandler.handle(error));
+  }
+
+  loadCities() {
+
+    const state = this.f['address'].get('city.state.id')?.value;
+
+    return this.cityService.findByStateId(state).then(cities => {
+
+      this.f['address'].get('city.id')?.enable();
+
+      if (this.state !== this.f['address'].get('city.state.id')?.value)
+
+        this.f['address'].get('city.id')?.reset();
+
+      this.cities = cities.map((c: City) => ({ label: c.name, value: c.id }));
 
     }).catch(error => this.errorHandler.handle(error));
   }
@@ -181,7 +199,7 @@ export class PersonCreateComponent implements OnInit {
         district: [ null, [ Validators.required ] ],
         zipcode: [ null, [ Validators.required ] ],
         city: this.formBuilder.group({
-          id: [ null, [ Validators.required ] ],
+          id: [ { value: null, disabled: true }, [ Validators.required ] ],
           state: this.formBuilder.group({
             id: [ null, [ Validators.required ] ]
           })
