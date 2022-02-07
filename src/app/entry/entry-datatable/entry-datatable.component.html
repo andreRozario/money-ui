@@ -1,5 +1,5 @@
 <p-table [value]="entries" [paginator]="true" [rows]="size" [lazy]="true" [totalRecords]="totalElements" (onLazyLoad)="LazyLoadEmitter($event)"
-  [responsive]="true" styleClass="p-datatable-striped" #table>
+  [responsive]="true" sortField="person.name" dataKey="id" [loading]="loading" styleClass="p-datatable-striped" #table>
 
   <ng-template pTemplate="caption">
     <div class="flex align-items-center justify-content-between">
@@ -10,23 +10,39 @@
 
   <ng-template pTemplate="header">
     <tr>
-      <th>Pessoa</th>
-      <th>Descrição</th>
-      <th class="col-date-header">Vencimento</th>
-      <th class="col-date-header">Pagamento</th>
-      <th class="col-type-header">Tipo</th>
-      <th class="col-value-header">Valor</th>
+      <th class="col-expander"></th>
+      <th pSortableColumn="person.name">
+        Pessoa <p-sortIcon field="person.name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="description" class="hidden md:table-cell">
+        Descrição <p-sortIcon field="description"></p-sortIcon>
+      </th>
+      <th pSortableColumn="dueDate" class="col-date-header">
+        Vencimento <p-sortIcon field="dueDate"></p-sortIcon>
+      </th>
+      <th pSortableColumn="paymentDate" class="col-date-header">
+        Pagamento <p-sortIcon field="paymentDate"></p-sortIcon>
+      </th>
+      <th pSortableColumn="type" class="col-type-header">
+        Tipo <p-sortIcon field="type"></p-sortIcon>
+      </th>
+      <th pSortableColumn="value" class="col-value-header">
+        Valor <p-sortIcon field="value"></p-sortIcon>
+      </th>
       <th class="col-actions"></th>
     </tr>
   </ng-template>
 
-  <ng-template pTemplate="body" let-entry>
+  <ng-template pTemplate="body" let-entry let-expanded="expanded">
     <tr>
+      <td class="col-expander">
+        <button type="button" pButton [pRowToggler]="entry" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+      </td>
       <td>
         <span class="p-column-title">Pessoa</span>
         {{ entry.person }}
       </td>
-      <td>
+      <td class="hidden md:table-cell">
         <span class="p-column-title">Descrição</span>
         {{ entry.description }}
       </td>
@@ -55,9 +71,26 @@
     </tr>
   </ng-template>
 
+  <ng-template pTemplate="rowexpansion" let-entry>
+    <tr>
+      <td [attr.colspan]="8">
+        <div class="grid m-0">
+          <div class="col-12">
+            <label class="font-bold">Descrição:</label>
+            {{ entry.description }}
+          </div>
+          <div class="col-12">
+            <label class="font-bold">Categoria:</label>
+            {{ entry.category }}
+          </div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+
   <ng-template pTemplate="emptymessage">
     <tr>
-      <td colspan="7">Nenhum registro encontrado.</td>
+      <td [attr.colspan]="8">Nenhum registro encontrado.</td>
     </tr>
   </ng-template>
 

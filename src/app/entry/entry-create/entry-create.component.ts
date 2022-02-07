@@ -13,6 +13,7 @@ import { PersonService } from 'src/app/person/person.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 import { Entry } from 'src/app/_model/entry';
+import { EntryType } from 'src/app/_model/enumeration/entry-type';
 
 @Component({
   selector: 'app-entry-create',
@@ -23,10 +24,7 @@ export class EntryCreateComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
 
-  types: any[] = [
-    { label: 'Receita', value: 'RECEITA' },
-    { label: 'Despesa', value: 'DESPESA' }
-  ];
+  types: any[] = [];
 
   categories: any[] = [];
 
@@ -48,18 +46,7 @@ export class EntryCreateComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.title.setTitle('Novo Lançamento');
-
-    const id = this.route.snapshot.params['id'];
-
-    if (id)
-
-      this.loadEntry(id);
-
-    this.initForm();
-
-    this.loadCategories();
-    this.loadPersons();
+    this.initVariables();
   }
 
   loadEntry(id: number) {
@@ -190,7 +177,7 @@ export class EntryCreateComponent implements OnInit {
     this.uploading = false;
   }
 
-  onError(event: any) {
+  onError(_event: any) {
 
     this.messageService.add({ severity:'error', summary: 'Atenção!', detail: 'Erro ao tentar enviar anexo!', icon: 'pi-exclamation-circle' });
 
@@ -208,6 +195,30 @@ export class EntryCreateComponent implements OnInit {
   private titleUpdate() {
 
     this.title.setTitle(`Editar Lançamento: ${ this.form.get('description')?.value }`);
+  }
+
+  private loadEnumerations() {
+
+    this.types = Object.keys(EntryType).map(key => ({ label: EntryType[key as keyof typeof EntryType], value: key }));
+  }
+
+  private initVariables() {
+
+    this.title.setTitle('Novo Lançamento');
+
+    const id = this.route.snapshot.params['id'];
+
+    this.initForm();
+
+    this.loadEnumerations();
+
+    this.loadCategories();
+
+    this.loadPersons();
+
+    if (id)
+
+      this.loadEntry(id);
   }
 
   private initForm() {

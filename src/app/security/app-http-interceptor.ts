@@ -14,25 +14,22 @@ export class AppHttpInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (!request.url.includes('/login') && !this.auth.isAccessTokenNotValid()) {
+    if (!request.url.includes('/oauth/token') && this.auth.isAccessTokenNotValid()) {
 
-      if (!request.url.includes('/oauth/token') && this.auth.isAccessTokenNotValid()) {
+      return from(this.auth.refreshToken()).pipe(mergeMap(() => {
 
-        return from(this.auth.refreshToken()).pipe(mergeMap(() => {
+        if (this.auth.isAccessTokenNotValid())
 
-          if (this.auth.isAccessTokenNotValid())
+          throw new NotAuthenticatedError();
 
-            throw new NotAuthenticatedError();
+        request = request.clone({
+          setHeaders: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        });
 
-          request = request.clone({
-            setHeaders: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-          });
-
-          return next.handle(request);
-        }));
-      }
+        return next.handle(request);
+      }));
     }
 
     return next.handle(request);

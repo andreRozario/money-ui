@@ -29,8 +29,8 @@ export class ReportService {
   reportByPerson(filter: EntryByPersonFilter): Promise<any> {
 
     let params = new HttpParams()
-                      .set('initial_date', this.datePipe.transform(filter.initialDate, 'yyyy-MM-dd')!) // TODO - @RequestParam Adjustments
-                      .set('final_date', this.datePipe.transform(filter.finalDate, 'yyyy-MM-dd')!); // TODO - @RequestParam Adjustments
+                      .set('initialDate', this.datePipe.transform(filter.initialDate, 'yyyy-MM-dd')!)
+                      .set('finalDate', this.datePipe.transform(filter.finalDate, 'yyyy-MM-dd')!);
 
     return firstValueFrom(this.http.get(`${this.url}/reports/by-person`, { params, responseType: 'blob' })).then((response: any) => response);
   }

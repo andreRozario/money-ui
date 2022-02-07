@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -18,21 +18,25 @@ export class EntryDatatableComponent {
 
   @Input() totalElements!: number;
 
+  @Input() loading!: boolean;
+
   @Output() onLazyLoad = new EventEmitter();
 
   @Output() onDelete = new EventEmitter();
 
   @ViewChild('table') grid!: Table;
 
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService) { }
 
-  }
-
-  LazyLoadEmitter(event: LazyLoadEvent) {
+  LazyLoadEmitter(event: LazyLoadEvent) { // pageable = { page, sort: { field, order } }
 
     const page: number = (event.first! / event.rows!);
 
-    this.onLazyLoad.emit(page);
+    const field: string = event.sortField ? event.sortField : 'id';
+
+    const order: string = event.sortOrder === 1 ? 'ASC' : 'DESC';
+
+    this.onLazyLoad.emit({ page, sort: { field, order } });
   }
 
   DeleteByIdEmitter(object: any) { // object = { entry, grid }

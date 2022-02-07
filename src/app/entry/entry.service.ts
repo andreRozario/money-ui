@@ -19,6 +19,13 @@ export class EntryFilter {
    page: number = 0;
 
    size: number = 5;
+
+   sort: any = {
+
+    field: 'id',
+
+    order: 'ASC'
+   }
 }
 
 @Injectable({
@@ -35,22 +42,7 @@ export class EntryService {
 
   summarize(filter: EntryFilter): Promise<any> {
 
-    let params = new HttpParams();
-
-    params = params.set('page', filter.page);
-    params = params.set('size', filter.size);
-
-    if (filter.description)
-
-      params = params.set('description', filter.description);
-
-    if (filter.dueDateFrom)
-
-      params = params.set('dueDateFrom', this.datePipe.transform(filter.dueDateFrom, 'yyyy-MM-dd')!);
-
-    if (filter.dueDateTo)
-
-      params = params.set('dueDateTo', this.datePipe.transform(filter.dueDateTo, 'yyyy-MM-dd')!);
+    let params = this.setParams(filter, new HttpParams());
 
     return firstValueFrom(this.http.get(`${this.url}?summarize`, { params })).then((response: any) => {
 
@@ -100,6 +92,28 @@ export class EntryService {
   uploadURL(): string {
 
     return `${this.url}/attachment`;
+  }
+
+  private setParams(filter: EntryFilter, params: HttpParams): HttpParams {
+
+    params = params.set('page', filter.page);
+    params = params.set('size', filter.size);
+
+    if (filter.description)
+
+      params = params.set('description', filter.description);
+
+    if (filter.dueDateFrom)
+
+      params = params.set('dueDateFrom', this.datePipe.transform(filter.dueDateFrom, 'yyyy-MM-dd')!);
+
+    if (filter.dueDateTo)
+
+      params = params.set('dueDateTo', this.datePipe.transform(filter.dueDateTo, 'yyyy-MM-dd')!);
+
+      params = params.set('sort', `${filter.sort.field},${filter.sort.order}`);
+
+    return params;
   }
 }
 

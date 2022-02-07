@@ -26,8 +26,12 @@ h1 {
   margin: 0 auto;
 }
 
+.col-expander {
+  width: 70px;
+}
+
 .col-date-header {
-  width: 135px;
+  width: 155px;
   text-align: center!important;
 }
 
@@ -60,32 +64,55 @@ h1 {
   outline: none;
 }
 
+/* Border no Round Left */
+
+.border-noround--left {
+  border-top-left-radius: 0!important;
+  border-bottom-left-radius: 0!important;
+}
+
 /* HACKS */
 
-/* .p-paginator .p-paginator-pages .p-paginator-page {
+/* PAGINATOR */
+
+.p-paginator .p-paginator-pages .p-paginator-page {
   margin: unset;
-} */
+}
+
+/* DATATABLE */
 
 .p-datatable .p-datatable-thead > tr > th {
   background-color: #161c25;
 }
 
+/* CARD */
+
 .p-card .p-card-footer {
   padding-top: 0.65rem;
 }
+
+.p-card .p-card-content {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* SELECT BUTTON */
 
 .p-selectbutton .p-button.p-highlight {
   background-color: #2a5185!important;
   border-color: #2a5185!important;
 }
 
-.p-dropdown {
-  width: 100%!important;
+/* CALENDAR */
+
+.p-calendar {
+  width: 100%;
 }
 
-.border-noround--left {
-  border-top-left-radius: 0!important;
-  border-bottom-left-radius: 0!important;
+/* DROPDOWN */
+
+.p-dropdown {
+  width: 100%!important;
 }
 
 .p-dropdown-filter {
@@ -100,12 +127,10 @@ p-inputnumber.ng-touched.ng-invalid > .p-inputnumber > .p-inputtext, p-dropdown.
   border-color: #f19ea6;
 }
 
+/* FLOAT LABEL */
+
 .p-float-label > p-inputnumber.ng-invalid.ng-touched + label, .p-float-label > p-dropdown.ng-invalid.ng-touched + label {
   color: #f19ea6;
-}
-
-.p-float-label > p-inputnumber .p-inputnumber-input.p-filled {
-  color: #ffffff;
 }
 
 /* TOAST */
@@ -142,4 +167,13 @@ p-inputnumber.ng-touched.ng-invalid > .p-inputnumber > .p-inputtext, p-dropdown.
 
 a.p-menuitem-link.p-menuitem-link-active {
   background: #20262e;
+}
+
+/* DISPLAY */
+
+@media (min-width: 1400px) {
+
+  .md\:table-cell {
+    display: table-cell!important;
+  }
 }

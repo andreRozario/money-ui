@@ -45,17 +45,7 @@ export class PersonCreateComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.title.setTitle('Nova Pessoa');
-
-    const id = this.route.snapshot.params['id'];
-
-    this.initForm();
-
-    this.loadStates();
-
-    if (id)
-
-      this.loadPerson(id);
+    this.initVariables();
   }
 
   get isEditing() {
@@ -88,11 +78,11 @@ export class PersonCreateComponent implements OnInit {
 
     const person = this.form.value;
 
-    this.personService.save(person).then((_response: Person) => {
+    this.personService.save(person).then((person: Person) => {
 
       this.messageService.add({ severity:'success', summary: 'Sucesso', detail: 'Pessoa salva na base de dados!', icon: 'pi-check-circle' });
 
-      this.reset();
+      this.router.navigate(['/persons/edit', person.id]);
 
     }).catch(error => this.errorHandler.handle(error));
   }
@@ -183,6 +173,21 @@ export class PersonCreateComponent implements OnInit {
   private titleUpdate() {
 
     this.title.setTitle(`Editar Pessoa: ${ this.form.get('name')?.value }`);
+  }
+
+  private initVariables() {
+
+    this.title.setTitle('Nova Pessoa');
+
+    const id = this.route.snapshot.params['id'];
+
+    this.initForm();
+
+    this.loadStates();
+
+    if (id)
+
+      this.loadPerson(id);
   }
 
   private initForm() {

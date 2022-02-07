@@ -20,6 +20,8 @@ export class EntryFilterComponent implements OnInit {
 
   totalElements: number = 0;
 
+  loading: boolean = true;
+
   constructor(
     private auth: AuthService,
     private confirmationService: ConfirmationService,
@@ -34,21 +36,30 @@ export class EntryFilterComponent implements OnInit {
     this.title.setTitle('Lançamentos');
   }
 
-  summarize(page: number = 0): Promise<any> {
+  summarize(page: number = 0, field: string = 'id', order: string = 'ASC'): Promise<any> {
 
     this.filter.page = page;
 
+    this.filter.sort.field = field;
+
+    this.filter.sort.order = order;
+
     return this.service.summarize(this.filter).then(result => {
 
-      this.entries = result.content,
-      this.totalElements = result.totalElements
+      this.entries = result.content;
+      this.totalElements = result.totalElements;
+
+      this.loading = false;
 
     }).catch(error => this.errorHandler.handle(error));
+
   }
 
-  onPageChange(page: number) {
+  onPageChange(pageable: any) {
 
-    this.summarize(page);
+    this.loading = true;
+
+    this.summarize(pageable.page, pageable.sort.field, pageable.sort.order);
   }
 
   confirmation(object: any) {
