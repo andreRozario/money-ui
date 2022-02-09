@@ -27,7 +27,7 @@ export class AppComponent {
     this.translateService.get('primeng').subscribe(res => this.config.setTranslation(res));
   }
 
-  showNavbar() {
+  showComponent() {
 
     return this.router.url !== '/login';
   }
