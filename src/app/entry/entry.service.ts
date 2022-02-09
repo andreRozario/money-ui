@@ -116,7 +116,3 @@ export class EntryService {
     return params;
   }
 }
-
-// cd C:\Users\HellBoy\Documents\Development\Workspace-STS-4-4.13.0\money-api\target
-
-// java -jar money-api-1.0.0-SNAPSHOT.jar --spring.datasource.username=root --spring.datasource.password --moneyapi.allowed-web-application-origin=http://localhost:4200 --spring.profiles.active=oauth-security

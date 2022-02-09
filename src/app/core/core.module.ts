@@ -17,6 +17,7 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { NavbarComponent } from './navbar/navbar.component';
+import { FooterComponent } from './footer/footer.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { ForbiddenAccessComponent } from './forbidden-access.component';
 
@@ -54,6 +55,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   ],
   declarations: [
     NavbarComponent,
+    FooterComponent,
     PageNotFoundComponent,
     ForbiddenAccessComponent
   ],
@@ -61,7 +63,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ConfirmDialogModule,
     ToastModule,
 
-    NavbarComponent
+    NavbarComponent,
+    FooterComponent
   ],
   providers: [
     ConfirmationService,

@@ -1,7 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-/* @import '../src/app/core/navbar/navbar.component.css'; */
-
 body {
   margin: 0;
   background-color: #20262e;
@@ -73,19 +71,19 @@ h1 {
 
 /* HACKS */
 
-/* PAGINATOR */
+/* Paginator */
 
 .p-paginator .p-paginator-pages .p-paginator-page {
   margin: unset;
 }
 
-/* DATATABLE */
+/* Datatable */
 
 .p-datatable .p-datatable-thead > tr > th {
   background-color: #161c25;
 }
 
-/* CARD */
+/* Card */
 
 .p-card .p-card-footer {
   padding-top: 0.65rem;
@@ -96,20 +94,20 @@ h1 {
   padding-bottom: 0;
 }
 
-/* SELECT BUTTON */
+/* Select Button */
 
 .p-selectbutton .p-button.p-highlight {
   background-color: #2a5185!important;
   border-color: #2a5185!important;
 }
 
-/* CALENDAR */
+/* Calendar */
 
 .p-calendar {
   width: 100%;
 }
 
-/* DROPDOWN */
+/* Dropdown */
 
 .p-dropdown {
   width: 100%!important;
@@ -127,13 +125,13 @@ p-inputnumber.ng-touched.ng-invalid > .p-inputnumber > .p-inputtext, p-dropdown.
   border-color: #f19ea6;
 }
 
-/* FLOAT LABEL */
+/* Float Label */
 
 .p-float-label > p-inputnumber.ng-invalid.ng-touched + label, .p-float-label > p-dropdown.ng-invalid.ng-touched + label {
   color: #f19ea6;
 }
 
-/* TOAST */
+/* Toast */
 
 .p-toast .p-toast-message.p-toast-message-success  {
     background-color: #C8E6C9;
@@ -163,13 +161,13 @@ p-inputnumber.ng-touched.ng-invalid > .p-inputnumber > .p-inputtext, p-dropdown.
   color: #73000c;
 }
 
-/* MENU ITEM */
+/* Menu Item */
 
 a.p-menuitem-link.p-menuitem-link-active {
   background: #20262e;
 }
 
-/* DISPLAY */
+/* Display */
 
 @media (min-width: 1400px) {
 
