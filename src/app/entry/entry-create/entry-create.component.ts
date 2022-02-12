@@ -171,7 +171,7 @@ export class EntryCreateComponent implements OnInit {
 
     this.form.patchValue({
       attachment: attachment.filename,
-      urlAttachment: (attachment.url as string).replace('\\', 'https://')
+      urlAttachment: this.buildFileURI(attachment.url as string)
     });
 
     this.uploading = false;
@@ -190,6 +190,11 @@ export class EntryCreateComponent implements OnInit {
       attachment: null,
       urlAttachment: null
     });
+  }
+
+  buildFileURI(url: string) {
+
+    return url.startsWith('https://') ? url : url.replace('\\', 'https://');
   }
 
   private titleUpdate() {

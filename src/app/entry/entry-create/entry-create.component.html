@@ -155,7 +155,7 @@
 
             <button class="p-button-danger flex align-items-center" type="button" icon="pi pi-times" pTooltip="Remover Anexo" tooltipPosition="top" pButton (click)="removeAttachement()"></button>
 
-            <a [href]="f['urlAttachment']?.value" target="_blank" class="p-tag p-tag-success no-underline flex align-items-center px-3 py-2"
+            <a [href]="buildFileURI(f['urlAttachment']?.value)" target="_blank" class="p-tag p-tag-success no-underline flex align-items-center px-3 py-2"
               pTooltip="Baixar Anexo" tooltipPosition="left" [ngStyle]="{'border-radius':'10rem'}"><i class="pi pi-download mr-1"></i> {{ fileName }}</a>
 
           </div>
