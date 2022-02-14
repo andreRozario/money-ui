@@ -11,4 +11,4 @@ app.get('/*', function(request, response) {
   response.sendFile(`${__dirname}${path}/index.html`);
 });
 
-app.listen(4200);
+app.listen(process.env.PORT || 4200);
