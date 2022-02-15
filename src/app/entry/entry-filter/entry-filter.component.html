@@ -4,7 +4,7 @@
 
     <h1>Lançamentos</h1>
 
-    <form autocomplete="off" (ngSubmit)="summarize()">
+    <form autocomplete="off" (ngSubmit)="summarize()" #form="ngForm">
 
       <p-card [style]="{'background-color': '#252f3d'}">
 
@@ -63,7 +63,7 @@
       <div class="col">
 
         <app-entry-datatable [entries]="entries" [size]="filter.size" [totalElements]="totalElements" [loading]="loading"
-          (onLazyLoad)="onPageChange($event)" (onDelete)="confirmation($event)"></app-entry-datatable>
+          (onLazyLoad)="onPageChange($event)" (onDelete)="confirmation($event)" (onReset)="reset($event)"></app-entry-datatable>
 
       </div>
 

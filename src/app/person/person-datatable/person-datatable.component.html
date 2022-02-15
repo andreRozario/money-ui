@@ -1,10 +1,10 @@
-<p-table [value]="persons" [paginator]="true" [rows]="size" [lazy]="true" [totalRecords]="totalElements" (onLazyLoad)="LazyLoadEmmiter($event)"
-  [responsive]="true" styleClass="p-datatable-striped" #table>
+<p-table [value]="persons" [paginator]="true" [rows]="size" [lazy]="true" [totalRecords]="totalElements" (onLazyLoad)="lazyLoadEmmiter($event)"
+  [responsive]="true" [loading]="loading" styleClass="p-datatable-striped" #table>
 
   <ng-template pTemplate="caption">
     <div class="flex align-items-center justify-content-between">
       Pessoas
-      <p-button icon="pi pi-refresh"></p-button>
+      <p-button icon="pi pi-refresh" pTooltip="Resetar" tooltipPosition="left" (click)="resetEmitter(table)"></p-button>
     </div>
   </ng-template>
 
@@ -35,7 +35,7 @@
       <td class="col-status-title">
         <span class="p-column-title">Status</span>
 
-        <a href="javascript:;" [pTooltip]="person.status ? 'Inativar' : 'Ativar'" tooltipPosition="top" (click)="StatusUpdateEmitter(person)"
+        <a href="javascript:;" [pTooltip]="person.status ? 'Inativar' : 'Ativar'" tooltipPosition="top" (click)="statusUpdateEmitter(person)"
           class="p-tag block text-center no-underline" [ngClass]="{'p-tag-success' : person.status, 'p-tag-danger' : !person.status, 'not-allowed' : hasNoPermission('SAVE_PERSON')}"
           [ngStyle]="{'border-radius':'10rem'}">
           {{ person.status ? 'Ativo' : 'Inativo' }}
@@ -46,7 +46,7 @@
         <button icon="pi pi-pencil mx-1" pButton [routerLink]="['/persons/edit', person.id]"
           pTooltip="Editar" tooltipPosition="top" [disabled]="hasNoPermission('SAVE_PERSON')"></button>
         <button class="p-button-danger mx-1" icon="pi pi-trash" pButton
-          pTooltip="Deletar" tooltipPosition="top" (click)="DeleteByIdEmitter({ person, grid })" [disabled]="hasNoPermission('DELETE_PERSON')"></button>
+          pTooltip="Deletar" tooltipPosition="top" (click)="deleteByIdEmitter({ person, grid })" [disabled]="hasNoPermission('DELETE_PERSON')"></button>
       </td>
     </tr>
   </ng-template>

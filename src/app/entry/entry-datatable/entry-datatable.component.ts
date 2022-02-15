@@ -24,11 +24,13 @@ export class EntryDatatableComponent {
 
   @Output() onDelete = new EventEmitter();
 
+  @Output() onReset = new EventEmitter();
+
   @ViewChild('table') grid!: Table;
 
   constructor(private auth: AuthService) { }
 
-  LazyLoadEmitter(event: LazyLoadEvent) { // pageable = { page, sort: { field, order } }
+  lazyLoadEmitter(event: LazyLoadEvent) { // pageable = { page, sort: { field, order } }
 
     const page: number = (event.first! / event.rows!);
 
@@ -39,9 +41,14 @@ export class EntryDatatableComponent {
     this.onLazyLoad.emit({ page, sort: { field, order } });
   }
 
-  DeleteByIdEmitter(object: any) { // object = { entry, grid }
+  deleteByIdEmitter(object: any) { // object = { entry, grid }
 
     this.onDelete.emit(object);
+  }
+
+  resetEmitter(grid: any): void { // table
+
+    this.onReset.emit(grid);
   }
 
   hasNoPermission(permission: string) {

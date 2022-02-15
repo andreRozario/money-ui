@@ -4,7 +4,7 @@
 
     <h1>Pessoas</h1>
 
-    <form autocomplete="off" (ngSubmit)="findByNameContaining()">
+    <form autocomplete="off" (ngSubmit)="findByNameContaining()" #form="ngForm">
 
       <p-card [style]="{'background-color': '#252f3d'}">
 
@@ -36,8 +36,8 @@
 
       <div class="col">
 
-        <app-person-datatable [persons]="persons" [size]="filter.size" [totalElements]="totalElements"
-          (onLazyLoad)="onPageChange($event)" (onDelete)="confirmation($event)" (onStatusUpdate)="statusUpdate($event)"></app-person-datatable>
+        <app-person-datatable [persons]="persons" [size]="filter.size" [totalElements]="totalElements" [loading]="loading"
+          (onLazyLoad)="onPageChange($event)" (onDelete)="confirmation($event)" (onReset)="reset($event)" (onStatusUpdate)="statusUpdate($event)"></app-person-datatable>
 
       </div>
 

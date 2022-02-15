@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -19,6 +20,10 @@ export class PersonFilterComponent implements OnInit {
   persons = Array();
 
   totalElements: number = 0;
+
+  loading: boolean = true;
+
+  @ViewChild('form') form!: NgForm;
 
   constructor(
     private auth: AuthService,
@@ -43,10 +48,14 @@ export class PersonFilterComponent implements OnInit {
       this.persons = result.content,
       this.totalElements = result.totalElements
 
+      this.loading = false;
+
     }).catch(error => this.errorHandler.handle(error));
   }
 
   onPageChange(page: number) {
+
+    this.loading = true;
 
     this.findByNameContaining(page);
   }
@@ -88,6 +97,13 @@ export class PersonFilterComponent implements OnInit {
       this.messageService.add({ severity:'success', summary: 'Sucesso', detail: 'Pessoa excluída dos registros!', icon: 'pi-check-circle' });
 
     }).catch(error => this.errorHandler.handle(error));
+  }
+
+  reset(grid: any) {
+
+    this.form.reset();
+
+    grid.reset();
   }
 
   hasNoPermission(permission: string) {

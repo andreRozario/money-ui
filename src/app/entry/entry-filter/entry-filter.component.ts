@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -21,6 +22,8 @@ export class EntryFilterComponent implements OnInit {
   totalElements: number = 0;
 
   loading: boolean = true;
+
+  @ViewChild('form') form!: NgForm;
 
   constructor(
     private auth: AuthService,
@@ -84,6 +87,13 @@ export class EntryFilterComponent implements OnInit {
       this.messageService.add({ severity:'success', summary: 'Sucesso', detail: 'Lançamento excluído dos registros!', icon: 'pi-check-circle' });
 
     }).catch(error => this.errorHandler.handle(error));
+  }
+
+  reset(grid: any) {
+
+    this.form.reset();
+
+    grid.reset();
   }
 
   hasNoPermission(permission: string) {

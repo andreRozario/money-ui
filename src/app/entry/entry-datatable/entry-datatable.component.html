@@ -1,10 +1,10 @@
-<p-table [value]="entries" [paginator]="true" [rows]="size" [lazy]="true" [totalRecords]="totalElements" (onLazyLoad)="LazyLoadEmitter($event)"
+<p-table [value]="entries" [paginator]="true" [rows]="size" [lazy]="true" [totalRecords]="totalElements" (onLazyLoad)="lazyLoadEmitter($event)"
   [responsive]="true" sortField="person.name" dataKey="id" [loading]="loading" styleClass="p-datatable-striped" #table>
 
   <ng-template pTemplate="caption">
     <div class="flex align-items-center justify-content-between">
       Lançamentos
-      <p-button icon="pi pi-refresh"></p-button>
+      <p-button icon="pi pi-refresh" pTooltip="Resetar" tooltipPosition="left" (click)="resetEmitter(table)"></p-button>
     </div>
   </ng-template>
 
@@ -66,7 +66,7 @@
         <button icon="pi pi-pencil mx-1" pButton [routerLink]="['/entries/edit', entry.id]"
           pTooltip="Editar" tooltipPosition="top" [disabled]="hasNoPermission('SAVE_ENTRY')"></button>
         <button class="p-button-danger mx-1" icon="pi pi-trash" pButton
-          pTooltip="Deletar" tooltipPosition="top" (click)="DeleteByIdEmitter({ entry, grid })" [disabled]="hasNoPermission('DELETE_ENTRY')"></button>
+          pTooltip="Deletar" tooltipPosition="top" (click)="deleteByIdEmitter({ entry, grid })" [disabled]="hasNoPermission('DELETE_ENTRY')"></button>
       </td>
     </tr>
   </ng-template>
