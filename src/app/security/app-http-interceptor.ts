@@ -16,7 +16,15 @@ export class AppHttpInterceptor implements HttpInterceptor {
 
     if (!request.url.includes('/oauth/token') && this.auth.isAccessTokenNotValid()) {
 
+
+      console.log(`if (!request.url.includes('/oauth/token') && this.auth.isAccessTokenNotValid())`);
+
+
       return from(this.auth.refreshToken()).pipe(mergeMap(() => {
+
+
+        console.log(`return from(this.auth.refreshToken()).pipe(mergeMap(() => {`);
+
 
         if (this.auth.isAccessTokenNotValid())
 

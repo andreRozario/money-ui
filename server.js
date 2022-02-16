@@ -1,36 +1,40 @@
 const express = require('express');
 
-const path = require('path/posix');
+const path = require('path');
 
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 
 const app = express();
 
-const dist = '/dist';
+const dist = '/dist/money-ui';
 
-const middlewareValidateJWT = (request, response, next) => {
+// const privateKey = "u8x/A?D(G+KbPeShVkYp3s6v9y$B&E)H";
 
-  const authorization = request.headers["authorization"];
+// jwt.sign({ client: 'angular' }, privateKey, { algorithm: 'HS256'});
 
-  const token = authorization ? authorization.split(" ")[1] : null;
+// const middlewareValidateJWT = (request, response, next) => {
 
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, user) => {
+//   const authorization = request.headers["authorization"];
 
-      if (error && request.originalUrl !== '/login')
+//   const token = authorization ? authorization.split(" ")[1] : null;
 
-        response.status(403).send("Invalid Token");
+//   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, user) => {
 
-      request.user = user;
+//       if (error && request.originalUrl !== '/login')
 
-      next();
-  });
-};
+//         response.status(403).send("Invalid Token");
 
-app.use(express.static(`${__dirname}${dist}`));
+//       request.user = user;
 
-app.get('/*', middlewareValidateJWT, (_request, response) => {
+//       next();
+//   });
+// };
 
-  response.sendFile(path.join(`${__dirname}${dist}/index.html`));
+app.use(express.static(path.join(__dirname, dist)));
+
+app.get('/*', (_request, response) => {
+
+  response.sendFile('index.html', { root: dist });
 });
 
 app.listen(process.env.PORT || 4200);
