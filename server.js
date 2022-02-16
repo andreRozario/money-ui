@@ -1,37 +1,16 @@
 const express = require('express');
 
+const path = require('path/posix');
+
 const app = express();
 
-const path = '/dist/money-ui';
+const dist = '/dist/money-ui';
 
-const middlewareValidarJWT = (request, response, next) => {
+app.use(express.static(`${__dirname}${dist}`));
 
-  const jwt = request.headers["authorization"];
+app.get('/*', (_request, response) => {
 
-  const privateKey = "u8x/A?D(G+KbPeShVkYp3s6v9y$B&E)H";
-
-  const jwtService = require("jsonwebtoken");
-
-  jwtService.verify(jwt, privateKey, (error, userInfo) => {
-
-      if (error && request.originalUrl !== '/login') {
-
-        response.status(403).end();
-
-        return;
-      }
-
-      request.userInfo = userInfo;
-
-      next();
-  });
-};
-
-app.use(express.static(`${__dirname}${path}`));
-
-app.get('/*', middlewareValidarJWT, (_request, response) => {
-
-  response.sendFile(`${__dirname}${path}/index.html`);
+  response.sendFile(path.join(`${__dirname}${dist}/index.html`));
 });
 
 app.listen(process.env.PORT || 4200);
