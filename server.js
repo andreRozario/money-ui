@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 
 const app = express();
 
-const dist = '/dist/money-ui';
+const dist = '/dist';
 
 const middlewareValidateJWT = (request, response, next) => {
 
