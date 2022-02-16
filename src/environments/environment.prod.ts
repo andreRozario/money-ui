@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  domain: 'http://localhost:8080',
-  tokenAllowedDomains: [ /localhost:8080/ ],
+  domain: 'https://appmoney-api.herokuapp.com',
+  tokenAllowedDomains: [ /appmoney-api.herokuapp.com/ ],
   tokenDisallowedRoutes: [ /\/oauth\/token/ ]
 };
