@@ -18,10 +18,9 @@ export class AppHttpInterceptor implements HttpInterceptor {
 
       return from(this.auth.refreshToken()).pipe(mergeMap(() => {
 
-        if (this.auth.isAccessTokenNotValid()) {
+        if (this.auth.isAccessTokenNotValid())
 
           throw new NotAuthenticatedError();
-        }
 
         request = request.clone({
           setHeaders: {
