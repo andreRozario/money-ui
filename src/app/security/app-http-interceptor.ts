@@ -1,5 +1,6 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 
 import { from, mergeMap, Observable } from "rxjs";
 
@@ -10,35 +11,29 @@ export class NotAuthenticatedError {}
 @Injectable()
 export class AppHttpInterceptor implements HttpInterceptor {
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private router: Router) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (!request.url.includes('/oauth/token') && this.auth.isAccessTokenNotValid()) {
+    if (this.router.url !== '/')
 
+      if (this.auth.isAccessTokenNotValid() && !request.url.includes('/oauth/token')) {
 
-      console.log(`if (!request.url.includes('/oauth/token') && this.auth.isAccessTokenNotValid())`);
+        return from(this.auth.refreshToken()).pipe(mergeMap(() => {
 
+          if (this.auth.isAccessTokenNotValid())
 
-      return from(this.auth.refreshToken()).pipe(mergeMap(() => {
+            throw new NotAuthenticatedError();
 
+          request = request.clone({
+            setHeaders: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+          });
 
-        console.log(`return from(this.auth.refreshToken()).pipe(mergeMap(() => {`);
-
-
-        if (this.auth.isAccessTokenNotValid())
-
-          throw new NotAuthenticatedError();
-
-        request = request.clone({
-          setHeaders: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          }
-        });
-
-        return next.handle(request);
-      }));
-    }
+          return next.handle(request);
+        }));
+      }
 
     return next.handle(request);
   }
