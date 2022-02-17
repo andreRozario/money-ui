@@ -6,7 +6,7 @@ const path = require('path');
 
 const app = express();
 
-const server = require('http').Server(app);
+const server = require('https').Server(app);
 
 const dist = '/dist/money-ui';
 
