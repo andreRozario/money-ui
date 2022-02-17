@@ -30,7 +30,7 @@ export class AuthService {
       .append('Authorization', 'Basic YW5ndWxhcjpBbmd1MUByXyE=')
       .append('Content-Type', 'application/x-www-form-urlencoded');
 
-    const body = `username=${username}&password=${password}&grant_type=password`;
+    const body = `client=angular&username=${username}&password=${password}&grant_type=password`;
 
     return firstValueFrom(this.http.post(this.url, body, { headers, withCredentials: true })).then((response: any) => {
 
