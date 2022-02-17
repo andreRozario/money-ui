@@ -6,6 +6,8 @@ const path = require('path');
 
 const app = express();
 
+const server = require('http').Server(app);
+
 const dist = '/dist/money-ui';
 
 app.use(express.static(path.join(__dirname, dist)));
@@ -15,4 +17,4 @@ app.get('/*', (_request, response) => {
   response.sendFile(path.join(__dirname, dist, '/index.html'));
 });
 
-app.listen(process.env.PORT || 4200);
+server.listen(process.env.PORT || 4200);
